@@ -1,0 +1,1 @@
+{"version":3,"file":"LoaderEvent.js","sourceRoot":"","sources":["../../../src/load/abstract/LoaderEvent.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,IAAM,WAAW,GAAG;IACvB,KAAK,EAAE,mBAAmB;IAC1B,QAAQ,EAAE,sBAAsB;IAChC,QAAQ,EAAE,sBAAsB;IAChC,aAAa,EAAE,2BAA2B;IAC1C,KAAK,EAAE,mBAAmB;CAC7B,CAAC"}
