@@ -9,8 +9,9 @@ curFolderName=${PWD##*/}
 echo "Current folder name $curFolderName"
 
 echo "Adding the current folder is added as a global npm link"
+cd dist/
 npm link
 
 echo "Moving to the target folder and add the global npm link into it"
-cd "../${1}/node_modules/"
+cd "../../${1}/node_modules/"
 npm link "$curFolderName"
