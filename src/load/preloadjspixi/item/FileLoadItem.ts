@@ -1,6 +1,6 @@
-import {LoadItem} from "../../abstract/item/LoadItem";
 import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
+import {LoadItem} from "../../abstract/item/LoadItem";
 
 export class FileLoadItem extends LoadItem {
 
@@ -34,29 +34,21 @@ export class FileLoadItem extends LoadItem {
     protected addLoadingListeners(): void {
         super.addLoadingListeners();
 
-        this.queue.on(
+        this.eventListenerHelper.addEventListener(
+            this.queue,
             PreloadjsLoadQueueEventType.FILE_LOAD,
-            this.onFileLoad,
-            this
+            this.onFileLoad
         );
-        this.queue.on(
+        this.eventListenerHelper.addEventListener(
+            this.queue,
             PreloadjsLoadQueueEventType.PROGRESS,
-            this.onProgress,
-            this
+            this.onProgress
         );
-        this.queue.on(
+        this.eventListenerHelper.addEventListener(
+            this.queue,
             PreloadjsLoadQueueEventType.ERROR,
-            this.onError,
-            this
+            this.onError
         );
-    }
-
-    protected removeLoadingListeners(): void {
-        super.removeLoadingListeners();
-
-        this.queue.removeEventListener(PreloadjsLoadQueueEventType.FILE_LOAD, this.onFileLoad);
-        this.queue.removeEventListener(PreloadjsLoadQueueEventType.PROGRESS, this.onProgress);
-        this.queue.removeEventListener(PreloadjsLoadQueueEventType.ERROR, this.onError);
     }
 
     protected onFileLoad(event: IPreloadJSLoadCompleteEvent): void {

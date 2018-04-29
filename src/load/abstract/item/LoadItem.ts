@@ -1,4 +1,4 @@
-import {BaseObject} from "fcore";
+import {BaseObject, EventListenerHelper} from "fcore";
 
 import {LoadItemEvent} from "./LoadItemEvent";
 import {ILoadItemConfig} from "./ILoadItemConfig";
@@ -13,6 +13,8 @@ export abstract class LoadItem extends BaseObject {
 
     status: LoadStatus;
 
+    protected eventListenerHelper: EventListenerHelper;
+
     constructor(public config: ILoadItemConfig) {
         super();
 
@@ -20,7 +22,7 @@ export abstract class LoadItem extends BaseObject {
     }
 
     protected internalPrepare(): void {
-        // Override if needed
+        this.eventListenerHelper = new EventListenerHelper(this);
     }
 
     start(): void {
@@ -58,7 +60,7 @@ export abstract class LoadItem extends BaseObject {
     }
 
     protected removeLoadingListeners(): void {
-        // Override if needed
+        this.eventListenerHelper.removeAllListeners();
     }
 
 
