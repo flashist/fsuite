@@ -13,7 +13,7 @@ export class PixiImageLoadItem extends LoadItem {
 
     protected internalPrepare(): void {
         this.loader = new loaders.Loader(this.config.basePath);
-        // this.loader.baseUrl = this.config.basePath + this.config.src;
+        // this.loader.baseUrl = this.config.pathName + this.config.src;
         this.loader.add(
             this.config.id || this.config.src,
             this.config.src
@@ -21,7 +21,7 @@ export class PixiImageLoadItem extends LoadItem {
 
         /*this.queue = new createjs.LoadQueue(
             false,
-            this.config.basePath
+            this.config.pathName
         );
         this.queue.loadFile(
             this.config.src,
