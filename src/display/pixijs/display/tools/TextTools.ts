@@ -2,11 +2,12 @@ import {Logger} from "fcore";
 
 import {
     TextTruncateType,
-    Text
+    Text,
+    FLabel
 } from "../../../../index";
 
 export class TextTools {
-    static truncateToFit(field: Text,
+    static truncateToFit(field: FLabel,
                          maxWidth?: number,
                          maxHeight?: number,
                          truncateType: TextTruncateType = TextTruncateType.FROM_RIGHT,

@@ -17,11 +17,11 @@ var PixiImageLoadItem = /** @class */ (function (_super) {
     }
     PixiImageLoadItem.prototype.internalPrepare = function () {
         this.loader = new loaders.Loader(this.config.basePath);
-        // this.loader.baseUrl = this.config.basePath + this.config.src;
+        // this.loader.baseUrl = this.config.pathName + this.config.src;
         this.loader.add(this.config.id || this.config.src, this.config.src);
         /*this.queue = new createjs.LoadQueue(
             false,
-            this.config.basePath
+            this.config.pathName
         );
         this.queue.loadFile(
             this.config.src,

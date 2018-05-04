@@ -1,5 +1,4 @@
-/// <reference types="pixi.js" />
-import { TextTruncateType, Text } from "../../../../index";
+import { TextTruncateType, FLabel } from "../../../../index";
 export declare class TextTools {
-    static truncateToFit(field: Text, maxWidth?: number, maxHeight?: number, truncateType?: TextTruncateType, afterTruncateText?: string): boolean;
+    static truncateToFit(field: FLabel, maxWidth?: number, maxHeight?: number, truncateType?: TextTruncateType, afterTruncateText?: string): boolean;
 }
