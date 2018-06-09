@@ -17,6 +17,9 @@ var FApp = /** @class */ (function (_super) {
         _this.stage.isFStage = true;
         return _this;
     }
+    FApp.prototype.getGlobalInteractionPosition = function () {
+        return this.renderer.plugins.interaction.mouse.global;
+    };
     return FApp;
 }(App));
 export { FApp };

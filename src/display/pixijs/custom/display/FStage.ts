@@ -2,7 +2,7 @@ import {
     DisplayObjectContainer
 } from "../../../../index";
 
-export class FStage extends DisplayObjectContainer {
+export abstract class FStage extends DisplayObjectContainer {
 
     public isFStage: boolean = true;
 

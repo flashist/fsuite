@@ -1,8 +1,11 @@
 import {
     App,
     FStage,
-    AppProperties
+    AppProperties,
+    Point
 } from "../../../index";
+
+import {RendererPlugins} from "pixi.js";
 
 export class FApp extends App {
 
@@ -15,4 +18,7 @@ export class FApp extends App {
         this.stage.isFStage = true;
     }
 
+    public getGlobalInteractionPosition(): Point {
+        return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
+    }
 }
