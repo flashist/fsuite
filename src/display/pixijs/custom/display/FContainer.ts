@@ -104,6 +104,8 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
 
     protected commitData(): void {
         // Note: subclasses should implement their own logic here
+
+        this.arrange();
     }
 
     protected arrange(): void {

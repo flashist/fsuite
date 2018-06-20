@@ -81,6 +81,7 @@ var FContainer = /** @class */ (function (_super) {
     };
     FContainer.prototype.commitData = function () {
         // Note: subclasses should implement their own logic here
+        this.arrange();
     };
     FContainer.prototype.arrange = function () {
         // Note: subclasses should implement their own logic here

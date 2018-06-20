@@ -19,6 +19,7 @@ export declare class FLabel extends FContainer {
     width: number;
     height: number;
     align: string;
+    valign: string;
     bgAlpha: number;
     bgColor: number;
     private updateBg();

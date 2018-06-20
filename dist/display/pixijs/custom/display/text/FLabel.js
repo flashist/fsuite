@@ -8,8 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Text, BitmapText, Graphics, FContainer } from "../../../../../index";
-import { Align } from "../../../../../other/align/Align";
+import { Text, BitmapText, Graphics, FContainer, Align, VAlign } from "../../../../../index";
 var FLabel = /** @class */ (function (_super) {
     __extends(FLabel, _super);
     function FLabel() {
@@ -94,6 +93,16 @@ var FLabel = /** @class */ (function (_super) {
                 break;
         }
         this.field.x = newX;
+        var newY = 0;
+        switch (this.valign) {
+            case VAlign.MIDDLE:
+                newY = Math.floor((this._height - (this.textHeight * this.field.scale.y)) * 0.5);
+                break;
+            case VAlign.BOTTOM:
+                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y));
+                break;
+        }
+        this.field.y = newY;
     };
     Object.defineProperty(FLabel.prototype, "isBitmap", {
         get: function () {
@@ -190,6 +199,20 @@ var FLabel = /** @class */ (function (_super) {
                 return;
             }
             this.config.align = value;
+            this.arrange();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FLabel.prototype, "valign", {
+        get: function () {
+            return this.config.valign;
+        },
+        set: function (value) {
+            if (value === this.config.valign) {
+                return;
+            }
+            this.config.valign = value;
             this.arrange();
         },
         enumerable: true,

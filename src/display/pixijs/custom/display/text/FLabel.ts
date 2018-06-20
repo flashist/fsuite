@@ -1,5 +1,4 @@
-import {Text, BitmapText, IFLabelConfig, Graphics, FContainer} from "../../../../../index";
-import {Align} from "../../../../../other/align/Align";
+import {Text, BitmapText, IFLabelConfig, Graphics, FContainer, Align, VAlign} from "../../../../../index";
 
 export class FLabel extends FContainer {
 
@@ -110,6 +109,17 @@ export class FLabel extends FContainer {
                 break;
         }
         this.field.x = newX;
+
+        let newY: number = 0;
+        switch (this.valign) {
+            case VAlign.MIDDLE:
+                newY = Math.floor((this._height - (this.textHeight * this.field.scale.y)) * 0.5);
+                break;
+            case VAlign.BOTTOM:
+                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y));
+                break;
+        }
+        this.field.y = newY;
     }
 
 
@@ -199,6 +209,7 @@ export class FLabel extends FContainer {
         this.commitData();
     }
 
+
     public get align(): string {
         return this.config.align;
     }
@@ -212,6 +223,22 @@ export class FLabel extends FContainer {
 
         this.arrange();
     }
+
+
+    public get valign(): string {
+        return this.config.valign;
+    }
+
+    public set valign(value: string) {
+        if (value === this.config.valign) {
+            return;
+        }
+
+        this.config.valign = value;
+
+        this.arrange();
+    }
+
 
     public get bgAlpha(): number {
         return this.config.bgAlpha;

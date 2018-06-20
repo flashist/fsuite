@@ -19,7 +19,7 @@ export class TextTools {
         if (!maxHeight || field.height <= maxHeight) {
             maxHeight = field.height;
         }
-        if (!field.text || (field.width <= maxWidth && field.height <= maxHeight)) {
+        if (!field.text || (field.textWidth <= maxWidth && field.textHeight <= maxHeight)) {
             return false;
         }
 
@@ -28,7 +28,7 @@ export class TextTools {
         var maxSteps = 1000;
         var step = 0;
         while (text.length > 0 &&
-        ((field.width > maxWidth) || (field.height > maxHeight))) {
+        ((field.textWidth > maxWidth) || (field.textHeight > maxHeight))) {
             if (truncateType === TextTruncateType.FROM_LEFT) {
                 text = text.substring(1, text.length);
                 field.text = afterTruncateText + text;
