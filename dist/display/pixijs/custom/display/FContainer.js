@@ -24,6 +24,7 @@ var FContainer = /** @class */ (function (_super) {
         _this.stageListenerHelper = new EventListenerHelper(_this);
         _this.construction.apply(_this, args);
         _this.isConstructed = true;
+        _this.onConstructedComplete();
         _this.commitData();
         // PIXI eveents
         _this.stageListenerHelper.addEventListener(_this, DisplayEvent.ADDED, function () {
@@ -63,6 +64,10 @@ var FContainer = /** @class */ (function (_super) {
         if (this.eventListenerHelper) {
             this.eventListenerHelper.removeAllListeners();
         }
+    };
+    FContainer.prototype.onConstructedComplete = function () {
+        // TODO: might be used in subclasses to initiate object behavior,
+        // when all children are created and prepared
     };
     FContainer.prototype.onAddedToStage = function () {
         this.addListeners();

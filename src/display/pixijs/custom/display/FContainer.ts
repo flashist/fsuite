@@ -23,6 +23,7 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
 
         this.construction(...args);
         this.isConstructed = true;
+        this.onConstructedComplete();
 
         this.commitData();
 
@@ -81,6 +82,11 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
         if (this.eventListenerHelper) {
             this.eventListenerHelper.removeAllListeners();
         }
+    }
+
+    protected onConstructedComplete(): void {
+        // TODO: might be used in subclasses to initiate object behavior,
+        // when all children are created and prepared
     }
 
     protected onAddedToStage(): void {

@@ -14,6 +14,7 @@ export declare class FContainer<DataType extends object = object> extends Displa
     destruction(): void;
     protected addListeners(): void;
     protected removeListeners(): void;
+    protected onConstructedComplete(): void;
     protected onAddedToStage(): void;
     protected onRemovedFromStage(): void;
     protected commitData(): void;
