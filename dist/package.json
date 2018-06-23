@@ -1,6 +1,6 @@
 {
   "name": "fsuite",
-  "version": "0.0.3-dev.1",
+  "version": "0.0.3",
   "license": "MIT",
   "private": false,
   "repository": {
@@ -12,10 +12,12 @@
   "scripts": {
     "build": "gulp"
   },
-  "devDependencies": {
-    "@types/pixi.js": "4.5.x",
-    "@types/preloadjs": "0.x",
+  "dependencies": {
     "fcore": "0.x",
+    "@types/pixi.js": "4.5.x",
+    "@types/preloadjs": "0.x"
+  },
+  "devDependencies": {
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-file": "^0.3.0",

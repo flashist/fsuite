@@ -13,6 +13,7 @@ var FApp = /** @class */ (function (_super) {
     __extends(FApp, _super);
     function FApp(options) {
         var _this = _super.call(this, options) || this;
+        FApp._instance = _this;
         // FStage
         _this.stage.isFStage = true;
         return _this;
@@ -20,6 +21,13 @@ var FApp = /** @class */ (function (_super) {
     FApp.prototype.getGlobalInteractionPosition = function () {
         return this.renderer.plugins.interaction.mouse.global;
     };
+    Object.defineProperty(FApp, "instance", {
+        get: function () {
+            return FApp._instance;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return FApp;
 }(App));
 export { FApp };
