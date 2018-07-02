@@ -5,7 +5,7 @@ export declare class GenericObjectsModel<ItemType extends IGenericObjectVO = IGe
     protected items: AssociativeArray<ItemType>;
     parseSource(source: IGenericObjectChangeVO): void;
     getItem(id: string, isNeedToCreate?: boolean): ItemType;
-    removeItem(id: string): void;
+    protected removeItem(id: string): void;
     readonly itemsCount: number;
     protected createEmpty(id: string): ItemType;
     protected updateItem(item: ItemType, source: any): void;

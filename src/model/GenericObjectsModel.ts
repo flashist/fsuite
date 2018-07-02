@@ -34,7 +34,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
         return result;
     }
 
-    public removeItem(id: string): void {
+    protected removeItem(id: string): void {
         this.items.removeByKey(id);
     }
 
