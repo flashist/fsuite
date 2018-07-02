@@ -14,6 +14,7 @@ export * from './display/pixijs/display/events/DisplayEvent';
 export * from './display/pixijs/display/DisplayObject';
 export * from './display/pixijs/display/DisplayObjectContainer';
 export * from './display/pixijs/display/Sprite';
+export * from './display/pixijs/display/TilingSprite';
 export * from './display/pixijs/display/Text';
 export * from './display/pixijs/display/BitmapText';
 export * from './display/pixijs/display/Graphics';
