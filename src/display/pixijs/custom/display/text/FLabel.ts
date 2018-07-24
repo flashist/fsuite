@@ -1,4 +1,14 @@
-import {Text, BitmapText, IFLabelConfig, Graphics, FContainer, Align, VAlign, FLabelEvent} from "../../../../../index";
+import {
+    Text,
+    BitmapText,
+    IFLabelConfig,
+    Graphics,
+    FContainer,
+    Align,
+    VAlign,
+    FLabelEvent,
+    Point
+} from "../../../../../index";
 
 export class FLabel extends FContainer {
 
@@ -8,8 +18,10 @@ export class FLabel extends FContainer {
     protected bg: Graphics;
     protected field: Text | BitmapText;
 
-    private _height: number;
-    private _width: number;
+    protected _height: number;
+    protected _width: number;
+
+    protected _fieldPadding: Point;
 
     protected construction(config: IFLabelConfig): void {
         super.construction();
@@ -18,6 +30,8 @@ export class FLabel extends FContainer {
             config = {};
         }
         this.config = config;
+
+        this._fieldPadding = new Point();
 
         this.bg = new Graphics();
         this.addChild(this.bg);
@@ -88,37 +102,39 @@ export class FLabel extends FContainer {
         super.arrange();
 
         if (this.autosize) {
-            this._width = this.field.width;
-            this._height = this.field.height;
+            this._width = this.field.width + (this._fieldPadding.x * 2);
+            this._height = this.field.height + (this._fieldPadding.y * 2);
         }
-
-        this.fieldMask.width = this._width;
-        this.fieldMask.height = this._height;
 
         this.bg.width = this._width;
         this.bg.height = this._height;
 
-        let newX: number = 0;
+        let newX: number = this._fieldPadding.x;
         switch (this.align) {
             case Align.CENTER:
                 newX = Math.floor((this._width - (this.textWidth * this.field.scale.x)) * 0.5);
                 break;
             case Align.RIGHT:
-                newX = Math.floor(this._width - (this.textWidth * this.field.scale.x));
+                newX = Math.floor(this._width - (this.textWidth * this.field.scale.x)) - this._fieldPadding.x;
                 break;
         }
         this.field.x = newX;
 
-        let newY: number = 0;
+        let newY: number = this._fieldPadding.y;
         switch (this.valign) {
             case VAlign.MIDDLE:
                 newY = Math.floor((this._height - (this.textHeight * this.field.scale.y)) * 0.5);
                 break;
             case VAlign.BOTTOM:
-                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y));
+                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y)) - this._fieldPadding.y;
                 break;
         }
         this.field.y = newY;
+
+        this.fieldMask.x = this._fieldPadding.x;
+        this.fieldMask.y = this._fieldPadding.y;
+        this.fieldMask.width = this._width - (this._fieldPadding.x * 2);
+        this.fieldMask.height = this._height - (this._fieldPadding.y * 2);
     }
 
 
@@ -328,5 +344,18 @@ export class FLabel extends FContainer {
         } else {
             return this.field.height / this.field.scale.y;
         }
+    }
+
+    get fieldPadding(): Point {
+        return this._fieldPadding;
+    }
+    set fieldPadding(value: Point) {
+        if (this._fieldPadding.equals(value)) {
+            return;
+        }
+
+        this._fieldPadding = value.clone();
+
+        this.arrange();
     }
 }
