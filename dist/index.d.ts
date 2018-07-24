@@ -28,6 +28,7 @@ export * from './display/pixijs/custom/display/tools/FDisplayTools';
 export * from './display/pixijs/custom/display/events/FDisplayEvent';
 export * from './display/pixijs/custom/display/FContainer';
 export * from './display/pixijs/custom/display/text/IFLabelConfig';
+export * from './display/pixijs/custom/display/text/FLabelEvent';
 export * from './display/pixijs/custom/display/text/FLabel';
 export * from './display/pixijs/custom/FApp';
 export * from './model/ChangeActionType';

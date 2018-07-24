@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Text, BitmapText, Graphics, FContainer, Align, VAlign } from "../../../../../index";
+import { Text, BitmapText, Graphics, FContainer, Align, VAlign, FLabelEvent } from "../../../../../index";
 var FLabel = /** @class */ (function (_super) {
     __extends(FLabel, _super);
     function FLabel() {
@@ -29,7 +29,6 @@ var FLabel = /** @class */ (function (_super) {
         this._width = this.field.width;
         this._height = this.field.height;
         this.updateBg();
-        this.commitData();
     };
     FLabel.prototype.createField = function () {
         if (this.field) {
@@ -269,6 +268,7 @@ var FLabel = /** @class */ (function (_super) {
                 return;
             }
             this.field.text = value;
+            this.emit(FLabelEvent.TEXT_CHANGE);
             this.commitData();
         },
         enumerable: true,

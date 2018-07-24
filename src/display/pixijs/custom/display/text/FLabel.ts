@@ -1,4 +1,4 @@
-import {Text, BitmapText, IFLabelConfig, Graphics, FContainer, Align, VAlign} from "../../../../../index";
+import {Text, BitmapText, IFLabelConfig, Graphics, FContainer, Align, VAlign, FLabelEvent} from "../../../../../index";
 
 export class FLabel extends FContainer {
 
@@ -31,7 +31,6 @@ export class FLabel extends FContainer {
         this._height = this.field.height;
 
         this.updateBg();
-        this.commitData();
     }
 
     protected createField(): void {
@@ -296,6 +295,7 @@ export class FLabel extends FContainer {
         }
 
         this.field.text = value;
+        this.emit(FLabelEvent.TEXT_CHANGE);
 
         this.commitData();
     }
