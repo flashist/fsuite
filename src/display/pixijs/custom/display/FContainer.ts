@@ -48,6 +48,11 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
             FDisplayEvent.ADDED_TO_STAGE,
             this.onAddedToStage
         );
+        this.stageListenerHelper.addEventListener(
+            this,
+            FDisplayEvent.REMOVED_FROM_STAGE,
+            this.onRemovedFromStage
+        );
     }
 
 
