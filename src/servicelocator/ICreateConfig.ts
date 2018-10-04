@@ -1,4 +1,11 @@
+import {IConstructor} from "fcore";
+import {IActivatee} from "./IActivatee";
+
 export interface ICreateConfig {
-    isSingletone?: boolean;
+    toSubstitute?: IConstructor,
+
+    isSingleton?: boolean;
     forceCreation?: boolean;
+
+    activateesConstructors?: IConstructor<IActivatee>[];
 }

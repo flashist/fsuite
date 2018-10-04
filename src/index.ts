@@ -1,6 +1,7 @@
 import {IResizeConfig} from "./display/pixijs/display/tools/IResizeConfig";
 import {DefaultResizeConfig} from "./display/pixijs/display/tools/DefaultResizeConfig";
 
+export * from "./servicelocator/IActivatee";
 export * from './servicelocator/ICreateConfig'
 export * from './servicelocator/ServiceLocator'
 

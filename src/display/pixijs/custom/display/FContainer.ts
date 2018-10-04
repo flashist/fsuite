@@ -1,6 +1,14 @@
 import {EventListenerHelper, Logger} from "fcore";
 
-import {DisplayObjectContainer, FStage, FDisplayEvent, DisplayEvent, FDisplayTools} from "../../../../index";
+import {
+    DisplayObjectContainer,
+    FStage,
+    FDisplayEvent,
+    DisplayEvent,
+    FDisplayTools,
+    serviceLocatorProcessItemOnActivate,
+    serviceLocatorProcessItemOnDeactivate
+} from "../../../../index";
 
 export class FContainer<DataType extends object = object> extends DisplayObjectContainer {
 
@@ -95,11 +103,15 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
     }
 
     protected onAddedToStage(): void {
+        serviceLocatorProcessItemOnActivate(this);
+
         this.addListeners();
         this.commitData();
     }
 
     protected onRemovedFromStage(): void {
+        serviceLocatorProcessItemOnDeactivate(this);
+
         this.removeListeners();
 
         if (this.isNeedToDestructOnRemoveFromStage) {
