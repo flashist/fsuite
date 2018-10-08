@@ -1,11 +1,14 @@
 import {Dictionary, IConstructor} from "fcore";
 
 import {
-    ICreateConfig
+    ICreateConfig,
+    IServiceLocatorOptions,
+    IActivatee
 } from "../index";
-import {IActivatee} from "./IActivatee";
 
 export class ServiceLocator {
+
+    public static options: IServiceLocatorOptions = {};
 
     private static injectionsMap: Dictionary<IConstructor, IInjection> = new Dictionary<IConstructor, IInjection>();
 
@@ -64,6 +67,11 @@ export class ServiceLocator {
 
         } else {
             result = (new tempInjection.item(args) as Type);
+        }
+
+        if (ServiceLocator.options.debug) {
+            let constructorName: string = ServiceLocator.getConstructorName(item);
+            window[constructorName] = result;
         }
 
         return result;
@@ -150,6 +158,16 @@ export class ServiceLocator {
             }
         }
 
+        return result;
+    }
+
+    private static getConstructorName(constructor: IConstructor): string {
+        var startText = "class ";
+        var startIndex = constructor.toString().indexOf(startText) + startText.length;
+        var endText = " extends";
+        var endIndex = constructor.toString().indexOf(endText);
+
+        let result = constructor.toString().slice(startIndex, endIndex);
         return result;
     }
 }

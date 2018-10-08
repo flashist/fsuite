@@ -3,6 +3,7 @@ import {DefaultResizeConfig} from "./display/pixijs/display/tools/DefaultResizeC
 
 export * from "./servicelocator/IActivatee";
 export * from './servicelocator/ICreateConfig'
+export * from './servicelocator/IServiceLocatorOptions'
 export * from './servicelocator/ServiceLocator'
 
 export * from './geom/pixijs/Point'
