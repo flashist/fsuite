@@ -10,6 +10,10 @@ export class LoadManager {
         this.loadersToGroupMap[group] = loader;
     }
 
+    public getDefaultLoader(): Loader {
+        return this.defaultLoader;
+    }
+
     public getLoaderForGroup(group?: string): Loader {
         let result: Loader;
         if (group) {

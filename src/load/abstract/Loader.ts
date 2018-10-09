@@ -119,7 +119,7 @@ export class Loader extends BaseObject {
     }
 
     protected onItemComplete(): void {
-        this.dispatchEvent(LoaderEvent.ITEM_COMPLETE);
+        this.dispatchEvent(LoaderEvent.ITEM_COMPLETE, this.curItem);
 
         this.queue.onItemLoad(this.curItem);
 
