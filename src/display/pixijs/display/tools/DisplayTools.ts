@@ -60,7 +60,7 @@ export class DisplayTools {
      width:number,
      height:number,
      isNeedIncreaseSize:boolean = false,
-     scaleByMaxSide:boolean = true):void {
+     scaleByMinSide:boolean = true):void {
 
      if (object.width <= 0 || object.height <= 0) {
      return;
@@ -73,7 +73,7 @@ export class DisplayTools {
      var maxDelta:number = width / height;
      var objDelta:number = object.width / object.height;
 
-     if ((objDelta > maxDelta && scaleByMaxSide) || (objDelta <= maxDelta && !scaleByMaxSide)) {
+     if ((objDelta > maxDelta && scaleByMinSide) || (objDelta <= maxDelta && !scaleByMinSide)) {
      object.width = width;
      object.scaleY = object.scaleX;
 

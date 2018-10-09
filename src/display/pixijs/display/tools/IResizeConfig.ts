@@ -1,4 +1,4 @@
 export interface IResizeConfig {
-    upscaleAllowed: boolean;
-    scaleByMaxSide: boolean;
+    upscaleAllowed?: boolean;
+    scaleByMinSide?: boolean;
 }
