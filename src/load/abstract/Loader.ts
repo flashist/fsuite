@@ -12,12 +12,14 @@ export class Loader extends BaseObject {
 
     protected queue:LoaderQueue = new LoaderQueue();
 
-    public status: LoadStatus;
+    public status: LoadStatus = LoadStatus.WAIT;
 
     public stopOnError: boolean = false;
 
     protected curItem: LoadItem;
     protected curItemEventListenerHelper: EventListenerHelper<string>;
+
+    public autoStartOnAdd: boolean = true;
 
     construction(...args): void {
         super.construction(...args);
@@ -55,6 +57,10 @@ export class Loader extends BaseObject {
         if (!result) {
             result = LoadFactory.instance.createItem(config);
             this.queue.add(result);
+        }
+
+        if (this.status === LoadStatus.WAIT) {
+            this.start();
         }
 
         return result;

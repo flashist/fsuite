@@ -1,6 +1,7 @@
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {Loader} from "./Loader";
 import {LoadItem} from "./item/LoadItem";
+import {LoadStatus} from "./LoadStatus";
 export class LoadManager {
 
     protected defaultLoader: Loader = new Loader();
@@ -24,6 +25,11 @@ export class LoadManager {
         }
 
         return result;
+    }
+
+    public getGroupStatus(group?: string): LoadStatus {
+        let tempLoader: Loader = this.getLoaderForGroup(group);
+        return tempLoader.status;
     }
 
     public add(item: ILoadItemConfig): LoadItem {

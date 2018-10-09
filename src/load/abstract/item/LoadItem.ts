@@ -76,7 +76,7 @@ export abstract class LoadItem extends BaseObject {
 
         this.removeLoadingListeners();
 
-        this.dispatchEvent(LoadItemEvent.COMPLETE);
+        this.dispatchEvent(LoadItemEvent.COMPLETE, data);
     }
 
     protected processLoadingError(errorData: IErrorVO): void {
