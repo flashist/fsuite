@@ -10,7 +10,6 @@ export class InputManager extends BaseObject {
 
     protected static _instance:InputManager;
 
-
     private pressedKeyCodes:any = {};
     private prevPressedKeyCodes:any = {};
     private justPressedKeyCodes:any = {};
