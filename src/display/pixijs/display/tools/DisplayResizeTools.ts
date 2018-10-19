@@ -11,25 +11,6 @@ export class DisplayResizeTools {
         height: number,
         config?: IResizeConfig): void {
 
-        /*if (object.width <= 0 || object.height <= 0) {
-            return;
-        }
-
-        if (!config.upscaleAllowed && object.width <= width && object.height <= height) {
-            return;
-        }
-
-        const maxDelta: number = width / height;
-        const objDelta: number = object.width / object.height;
-
-        if ((objDelta <= maxDelta && config.scaleByMinSide) || (objDelta > maxDelta && !config.scaleByMinSide)) {
-            object.width = width;
-            object.scale.y = object.scale.x;
-
-        } else {
-            object.height = height;
-            object.scale.x = object.scale.y;
-        }*/
         let tempScale: number = DisplayResizeTools.getScale(
             object.width,
             object.height,
