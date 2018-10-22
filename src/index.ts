@@ -31,6 +31,8 @@ export * from './display/pixijs/display/tools/TextTools'
 export * from './display/pixijs/display/tools/TextTruncateType'
 export * from './display/pixijs/texture/Texture'
 
+export * from './display/pixijs/render/RendererEvent'
+
 export * from './display/pixijs/custom/display/FStage'
 export * from './display/pixijs/custom/display/tools/FDisplayTools'
 export * from './display/pixijs/custom/display/events/FDisplayEvent'
