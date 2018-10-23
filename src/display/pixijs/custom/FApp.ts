@@ -23,7 +23,8 @@ export class FApp extends App {
     }
 
     public getGlobalInteractionPosition(): Point {
-        return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
+        // return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
+        return (this.renderer.plugins as RendererPlugins).interaction.eventData.data.global.clone();
     }
 
 
