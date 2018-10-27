@@ -1,10 +1,8 @@
-import loaders = PIXI.loaders;
-
 import {LoadItem} from "../../abstract/item/LoadItem";
 
 export class PixiImageLoadItem extends LoadItem {
 
-    protected loader: loaders.Loader;
+    protected loader: PIXI.loaders.Loader;
 
     protected progressBinding: any;
     protected fileCompleteBinding: any;
@@ -12,21 +10,11 @@ export class PixiImageLoadItem extends LoadItem {
     protected errorBinding: any;
 
     protected internalPrepare(): void {
-        this.loader = new loaders.Loader(this.config.basePath);
-        // this.loader.baseUrl = this.config.pathName + this.config.src;
+        this.loader = new PIXI.loaders.Loader(this.config.basePath);
         this.loader.add(
             this.config.id || this.config.src,
             this.config.src
         );
-
-        /*this.queue = new createjs.LoadQueue(
-            false,
-            this.config.pathName
-        );
-        this.queue.loadFile(
-            this.config.src,
-            false
-        );*/
     }
 
     protected internalStart():void {
@@ -47,7 +35,7 @@ export class PixiImageLoadItem extends LoadItem {
         super.addLoadingListeners();
 
         this.progressBinding = this.loader.onProgress.add(
-            (loader: loaders.Loader, resource: loaders.Resource) => {
+            (loader: PIXI.loaders.Loader, resource: PIXI.loaders.Resource) => {
                 this.processLoadingProgress(loader.progress / 100);
             }
         );
@@ -57,12 +45,12 @@ export class PixiImageLoadItem extends LoadItem {
             }
         );*/
         this.completeBinding = this.loader.onComplete.add(
-            (loader: loaders.Loader, resourcesMap: {[key: string]: loaders.Resource}) => {
+            (loader: PIXI.loaders.Loader, resourcesMap: {[key: string]: PIXI.loaders.Resource}) => {
                 this.processLoadingComplete(resourcesMap);
             }
         );
         this.errorBinding = this.loader.onError.add(
-            (error: any, loader: loaders.Loader, resource: loaders.Resource) => {
+            (error: any, loader: PIXI.loaders.Loader, resource: PIXI.loaders.Resource) => {
                 this.processLoadingError(
                     {
                         data: error,

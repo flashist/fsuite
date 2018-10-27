@@ -1,5 +1,6 @@
 export const FileType = {
     TEXT: "text",
     IMAGE: "image",
-    SPRITESHEET: "spritesheet"
+    SPRITESHEET: "spritesheet",
+    FONT: "font"
 };

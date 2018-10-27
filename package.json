@@ -13,11 +13,13 @@
     "build": "gulp"
   },
   "dependencies": {
-    "fcore": "0.x",
     "@types/pixi.js": "4.5.x",
-    "@types/preloadjs": "0.x"
+    "@types/preloadjs": "0.x",
+    "fcore": "0.x",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@types/webfontloader": "^1.6.29",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-file": "^0.3.0",

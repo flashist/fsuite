@@ -6,6 +6,7 @@ import {ILoadItemConfig} from "../abstract/item/ILoadItemConfig";
 import {FileLoadItem} from "./item/FileLoadItem";
 import {FileType} from "../abstract/data/FileType";
 import {PixiImageLoadItem} from "./item/PixiImageLoadItem";
+import {FontLoadItem} from "./item/FontLoadItem";
 
 export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
 
@@ -22,6 +23,9 @@ export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
             case FileType.IMAGE:
             case FileType.SPRITESHEET:
                 result = new PixiImageLoadItem(config);
+                break;
+            case FileType.FONT:
+                result = new FontLoadItem(config);
                 break;
             default:
                 result = new FileLoadItem(config);
