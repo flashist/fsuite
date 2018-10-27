@@ -1,5 +1,9 @@
 import {ILoadItemConfig} from "./ILoadItemConfig";
 
 export interface IFontLoadItemConfig extends ILoadItemConfig {
-    fontFamily: string;
+    fontFace: {
+        "font-family": string;
+        "font-weight"?: string;
+        "font-style"?: string;
+    }
 }

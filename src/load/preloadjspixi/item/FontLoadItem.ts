@@ -21,12 +21,12 @@ export class FontLoadItem extends LoadItem {
         let style: any = document.createElement("style");
         style.type = "text/css";
         document.getElementsByTagName('head')[0].appendChild(style);
-        let fontRule: string = this.generateFontFaceRule(this.config.fontFamily, this.config.src);
+        let fontRule: string = this.generateFontFaceRule();
         style.sheet.insertRule(fontRule);
 
         this.fontLoadingConfig = {
             custom: {
-                families: [this.config.fontFamily]
+                families: [this.config.fontFace["font-family"]]
             }
         };
     }
@@ -63,23 +63,32 @@ export class FontLoadItem extends LoadItem {
         };
     }
 
-    protected generateFontFaceRule(fontFamily: string, pathToFile: string): string {
+    protected generateFontFaceRule(): string {
 
-        let filepathWithoutExtension: string = pathToFile;
+        let filepathWithoutExtension: string = this.config.src;
         let lastDotIndex: number = filepathWithoutExtension.lastIndexOf('.');
         if (lastDotIndex >= 0) {
             filepathWithoutExtension = filepathWithoutExtension.substring(0, lastDotIndex);
         }
 
         let result: string = `@font-face {
-            font-family: '${fontFamily}';
             src: url('${filepathWithoutExtension}.eot');
             src: url('${filepathWithoutExtension}.woff2') format('woff2'),
                 url('${filepathWithoutExtension}.woff') format('woff'),
                 url('${filepathWithoutExtension}.ttf') format('truetype'),
                 url('${filepathWithoutExtension}.svg#Rochester-Regular') format('svg'),
-                url('${filepathWithoutExtension}.eot?#iefix') format('embedded-opentype');
-        }`;
+                url('${filepathWithoutExtension}.eot?#iefix') format('embedded-opentype');`;
+
+        for (let propName in this.config.fontFace) {
+            if (propName == "font-family") {
+                result+= `${propName}: "${this.config.fontFace[propName]}"`;
+
+            } else {
+                result+= `${propName}: ${this.config.fontFace[propName]}`;
+            }
+        }
+
+        result += "}";
 
         return result;
     }
