@@ -4,7 +4,7 @@ export interface IFLabelConfig {
     bgAlpha?: number;
     autosize?: boolean;
 
-    font?: string;
+    fontFamily?: string;
     size?: number;
     color?: number;
     align?: string;

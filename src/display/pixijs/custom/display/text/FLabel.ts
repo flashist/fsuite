@@ -58,7 +58,7 @@ export class FLabel extends FContainer {
                 "",
                 {
                     font: {
-                        name: this.config.font,
+                        name: this.config.fontFamily,
                         size: this.config.size
                     },
                     tint: this.config.color
@@ -79,8 +79,8 @@ export class FLabel extends FContainer {
 
         } else {
             const textField: Text = (this.field as Text);
-            if (this.config.font) {
-                textField.style.fontFamily = this.config.font;
+            if (this.config.fontFamily) {
+                textField.style.fontFamily = this.config.fontFamily;
             }
             if (this.config.size) {
                 textField.style.fontSize = this.config.size;
@@ -154,16 +154,16 @@ export class FLabel extends FContainer {
         this.commitData();
     }
 
-    public get font(): string {
-        return this.config.font;
+    public get fontFamily(): string {
+        return this.config.fontFamily;
     }
 
-    public set font(value: string) {
-        if (value === this.config.font) {
+    public set fontFamily(value: string) {
+        if (value === this.config.fontFamily) {
             return;
         }
 
-        this.config.font = value;
+        this.config.fontFamily = value;
 
         this.applyStyle();
     }
