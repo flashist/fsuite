@@ -88,6 +88,16 @@ export class FLabel extends FContainer {
             if (this.config.color) {
                 textField.style.fill = this.config.color;
             }
+            if (this.config.bold) {
+                textField.style.fontWeight = "bold";
+            } else {
+                textField.style.fontWeight = "normal";
+            }
+            if (this.config.dropShadow) {
+                textField.style.dropShadow = true;
+            } else {
+                textField.style.dropShadow = false;
+            }
         }
     }
 
@@ -345,6 +355,33 @@ export class FLabel extends FContainer {
             return this.field.height / this.field.scale.y;
         }
     }
+
+    get bold(): boolean {
+        return this.config.bold;
+    }
+    set bold(value: boolean) {
+        if (this.config.bold === value) {
+            return;
+        }
+
+        this.config.bold = value;
+
+        this.applyStyle();
+    }
+
+    get dropShadow(): boolean {
+        return this.config.dropShadow;
+    }
+    set dropShadow(value: boolean) {
+        if (this.config.dropShadow === value) {
+            return;
+        }
+
+        this.config.dropShadow = value;
+
+        this.applyStyle();
+    }
+
 
     get fieldPadding(): Point {
         return this._fieldPadding;

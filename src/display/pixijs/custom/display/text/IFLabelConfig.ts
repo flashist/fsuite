@@ -9,4 +9,7 @@ export interface IFLabelConfig {
     color?: number;
     align?: string;
     valign?: string;
+    bold?: boolean;
+
+    dropShadow?: boolean;
 }
