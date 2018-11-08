@@ -7,7 +7,7 @@ import {
     Align,
     VAlign,
     FLabelEvent,
-    Point
+    Point, AutosizeType
 } from "../../../../../index";
 
 export class FLabel extends FContainer {
@@ -112,8 +112,13 @@ export class FLabel extends FContainer {
         super.arrange();
 
         if (this.autosize) {
-            this._width = this.field.width + (this._fieldPadding.x * 2);
-            this._height = this.field.height + (this._fieldPadding.y * 2);
+            if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
+                this._width = this.field.width + (this._fieldPadding.x * 2);
+            }
+
+            if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.HEIGHT) {
+                this._height = this.field.height + (this._fieldPadding.y * 2);
+            }
         }
 
         this.bg.width = this._width;
@@ -329,13 +334,25 @@ export class FLabel extends FContainer {
     public get autosize(): boolean {
         return this.config.autosize;
     }
-
     public set autosize(value: boolean) {
         if (value === this.config.autosize) {
             return;
         }
 
         this.config.autosize = value;
+
+        this.arrange();
+    }
+
+    public get autosizeType(): AutosizeType {
+        return this.config.autosizeType;
+    }
+    public set autosizeType(value: AutosizeType) {
+        if (value === this.config.autosizeType) {
+            return;
+        }
+
+        this.config.autosizeType = value;
 
         this.arrange();
     }
