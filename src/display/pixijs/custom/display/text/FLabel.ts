@@ -99,8 +99,9 @@ export class FLabel extends FContainer {
                 textField.style.dropShadow = false;
             }
         }
-    }
 
+        this.arrange();
+    }
 
     protected commitData(): void {
         super.commitData();
