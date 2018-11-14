@@ -1,3 +1,6 @@
+
+import {ObjectTools} from "fcore";
+
 import {
     Text,
     BitmapText,
@@ -7,10 +10,14 @@ import {
     Align,
     VAlign,
     FLabelEvent,
-    Point, AutosizeType
+    Point,
+    AutosizeType,
+    FLabelDefaultConfig
 } from "../../../../../index";
 
 export class FLabel extends FContainer {
+
+    public static DEFAULT_CONFIG: IFLabelConfig = new FLabelDefaultConfig();
 
     protected config: IFLabelConfig;
 
@@ -23,13 +30,14 @@ export class FLabel extends FContainer {
 
     protected _fieldPadding: Point;
 
-    protected construction(config: IFLabelConfig): void {
+    protected construction(config?: IFLabelConfig): void {
         super.construction();
 
         if (!config) {
             config = {};
         }
         this.config = config;
+        ObjectTools.copyProps(this.config, FLabel.DEFAULT_CONFIG, true);
 
         this._fieldPadding = new Point();
 
@@ -83,7 +91,7 @@ export class FLabel extends FContainer {
                 textField.style.fontFamily = this.config.fontFamily;
             }
             if (this.config.size) {
-                textField.style.fontSize = this.config.size;
+                textField.style.fontSize = this.config.size / this.scaleFactor;
             }
             if (this.config.color) {
                 textField.style.fill = this.config.color;
@@ -98,6 +106,8 @@ export class FLabel extends FContainer {
             } else {
                 textField.style.dropShadow = false;
             }
+
+            textField.scale.set(this.scaleFactor);
         }
 
         this.arrange();
@@ -299,6 +309,19 @@ export class FLabel extends FContainer {
 
         this.updateBg();
         this.arrange();
+    }
+
+    public get scaleFactor(): number {
+        return this.config.scaleFactor;
+    }
+    public set scaleFactor(value: number) {
+        if (value === this.config.scaleFactor) {
+            return;
+        }
+
+        this.config.scaleFactor = value;
+
+        this.applyStyle();
     }
 
     private updateBg(): void {
