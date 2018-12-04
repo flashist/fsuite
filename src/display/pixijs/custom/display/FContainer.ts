@@ -71,6 +71,8 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
     public destruction(): void {
         // Note: subclasses should implement their own logic here
 
+        this.destroy();
+
         if (this.eventListenerHelper) {
             this.eventListenerHelper.destruction();
             this.eventListenerHelper = null;
