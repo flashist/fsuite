@@ -1,4 +1,4 @@
-import {Dictionary, IConstructor} from "fcore";
+import {Dictionary, IConstructor, ObjectTools} from "fcore";
 
 import {
     ICreateConfig,
@@ -30,14 +30,32 @@ export class ServiceLocator {
     static add(item: IConstructor, config?: ICreateConfig): void {
         let tempInjection: IInjection = ServiceLocator.getInjection(item);
 
-        if (config.toSubstitute) {
-            tempInjection.toSubstitute = config.toSubstitute;
+        if (config) {
+            if (config.toSubstitute) {
+                tempInjection.toSubstitute = config.toSubstitute;
 
-            let toSubstituteInjection: IInjection = ServiceLocator.getInjection(tempInjection.toSubstitute);
-            toSubstituteInjection.substitution = item;
+                let toSubstituteInjection: IInjection = ServiceLocator.getInjection(tempInjection.toSubstitute);
+                toSubstituteInjection.substitution = item;
+
+                if (toSubstituteInjection.config) {
+
+                    if (!config.activateesConstructors) {
+                        config.activateesConstructors = [];
+                    }
+
+                    if (toSubstituteInjection.config.activateesConstructors) {
+                        config.activateesConstructors.push(...toSubstituteInjection.config.activateesConstructors);
+                    }
+
+                    ObjectTools.copyProps(config, toSubstituteInjection.config, true);
+
+                }
+            }
+
+            tempInjection.config = config;
         }
 
-        if (config) {
+        /*if (config) {
             tempInjection.config = config;
 
         } else {
@@ -50,7 +68,7 @@ export class ServiceLocator {
                     tempInjection.config = toSubstituteInjection.config;
                 }
             }
-        }
+        }*/
     }
 
     static getInstance<Type extends any>(item: IConstructor<Type>, ...args): Type {
@@ -145,29 +163,33 @@ export class ServiceLocator {
             // Do while there is no information about the constructor,
             // which should be created on activation
             // and while there is an object in the substitue chain, which might have such information
-            while (item.config.activateesConstructors) {
+            // while (item.config.activateesConstructors) {
                 if (item.config.activateesConstructors) {
                     result.push(...item.config.activateesConstructors);
                 }
 
-                if (item.toSubstitute) {
+                /*if (item.toSubstitute) {
                     item = ServiceLocator.getInjection(item.toSubstitute);
                 } else {
                     break;
-                }
-            }
+                }*/
+            // }
         }
 
         return result;
     }
 
     private static getConstructorName(constructor: IConstructor): string {
-        var startText = "class ";
-        var startIndex = constructor.toString().indexOf(startText) + startText.length;
-        var endText = " extends";
-        var endIndex = constructor.toString().indexOf(endText);
+        let result: string = ObjectTools.getConstructorName(constructor);
+        if (!result) {
+            var startText = "class ";
+            var startIndex = constructor.toString().indexOf(startText) + startText.length;
+            var endText = " extends";
+            var endIndex = constructor.toString().indexOf(endText);
 
-        let result = constructor.toString().slice(startIndex, endIndex);
+            result = constructor.toString().slice(startIndex, endIndex);
+        }
+
         return result;
     }
 }

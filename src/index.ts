@@ -1,9 +1,9 @@
-import {FLabelDefaultConfig} from "./display/pixijs/custom/display/text/FLabelDefaultConfig";
-
 export * from "./servicelocator/IActivatee";
 export * from './servicelocator/ICreateConfig'
 export * from './servicelocator/IServiceLocatorOptions'
 export * from './servicelocator/ServiceLocator'
+
+export * from './pool/ServiceLocatorObjectsPool'
 
 export * from './geom/pixijs/Point'
 export * from './geom/pixijs/Rectangle'
