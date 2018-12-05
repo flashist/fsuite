@@ -13,13 +13,36 @@ export class FApp extends App {
 
     public stage: FStage;
 
-    constructor(options?: AppProperties) {
+    protected fpsLimitterEnabled: boolean;
+    protected lastTimeRendered: number = 0;
+    protected targetRenderInterval: number;
+
+    constructor(protected options: AppProperties) {
         super(options);
+
+        if (this.options.targetFps) {
+            this.fpsLimitterEnabled = true;
+            this.targetRenderInterval = 1000 / this.options.targetFps;
+        }
 
         FApp._instance = this;
 
         // FStage
         this.stage.isFStage = true;
+    }
+
+    public render(): void {
+        if (this.fpsLimitterEnabled) {
+            let tempDelta: number = Date.now() - this.lastTimeRendered;
+            if (tempDelta >= this.targetRenderInterval) {
+                this.lastTimeRendered = Date.now();
+
+                super.render();
+            }
+
+        } else {
+            super.render();
+        }
     }
 
     public getGlobalInteractionPosition(): Point {
