@@ -31,8 +31,8 @@ export class FApp extends App {
         this.stage.isFStage = true;
     }
 
-    public render(): void {
-        if (this.fpsLimitterEnabled) {
+    public render(force?: boolean): void {
+        if (!force && this.fpsLimitterEnabled) {
             let tempDelta: number = Date.now() - this.lastTimeRendered;
             if (tempDelta >= this.targetRenderInterval) {
                 this.lastTimeRendered = Date.now();
