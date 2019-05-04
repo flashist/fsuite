@@ -54,7 +54,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
         }
     }
 
-    public getItems(): ItemType[] {
+    public getAllItems(): ItemType[] {
         return this.items.getAllItems();
     }
 }

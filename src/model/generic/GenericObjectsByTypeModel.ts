@@ -33,7 +33,7 @@ export class GenericObjectsByTypeModel {
 
     public getItemsForType<ItemType extends IGenericObjectVO = IGenericObjectVO>(type: string): ItemType[] {
         const typeModel: GenericObjectsModel = this.getModelForType(type);
-        return typeModel.getItems() as ItemType[];
+        return typeModel.getAllItems() as ItemType[];
     }
 
     public mapModelToType(model: GenericObjectsModel, type: string): void {

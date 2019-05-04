@@ -51,6 +51,7 @@ export * from './model/generic/GenericObjectsByTypeModel'
 export * from './model/generic/GenericObjectsModel'
 export * from './model/generic/IGenericObjectWithStaticVO'
 export * from './model/generic/IGenericObjectVO'
+export * from './model/generic/GenericObjectsWithStaticTools'
 
 export * from './load/abstract/LoadFactory'
 export * from './load/abstract/LoadManager'
