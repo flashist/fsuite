@@ -78,13 +78,13 @@ export class ServiceLocator {
         let tempInjection: IInjection = ServiceLocator.getInjection(item);
         if (tempInjection.config && tempInjection.config.isSingleton) {
             if (!tempInjection.singletonInstance) {
-                tempInjection.singletonInstance = (new tempInjection.item(args) as Type);
+                tempInjection.singletonInstance = (new tempInjection.item(...args) as Type);
             }
 
             result = tempInjection.singletonInstance;
 
         } else {
-            result = (new tempInjection.item(args) as Type);
+            result = (new tempInjection.item(...args) as Type);
         }
 
         if (ServiceLocator.options.debug) {

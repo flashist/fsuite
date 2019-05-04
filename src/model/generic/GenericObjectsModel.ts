@@ -1,16 +1,16 @@
 import {AssociativeArray, BaseObject} from "fcore";
 
 import {IGenericObjectVO} from "./IGenericObjectVO";
-import {IGenericObjectChangeVO} from "./IGenericObjectChangeVO";
-import {ChangeActionType} from "./ChangeActionType";
+import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
 
 export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObjectVO> extends BaseObject {
 
     protected items: AssociativeArray<ItemType> = new AssociativeArray<ItemType>();
+    public defaultItemsType: string = "";
 
-    public parseSource(source: IGenericObjectChangeVO): void {
+    public parseSource(source: IGenericObjectVO): void {
         switch (source.action) {
-            case ChangeActionType.REMOVE:
+            case GenericObjectChangeActionType.REMOVE:
                 this.removeItem(source.id);
                 break;
 
@@ -43,7 +43,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
     }
 
     protected createEmpty(id: string): ItemType {
-        return ({id: id, type: ""} as ItemType);
+        return ({id: id, type: this.defaultItemsType} as ItemType);
     }
 
     protected updateItem(item: ItemType, source: any): void {
