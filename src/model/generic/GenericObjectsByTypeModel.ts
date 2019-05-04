@@ -26,14 +26,14 @@ export class GenericObjectsByTypeModel {
         return result;
     }
 
-    public getItem(type: string, id: string): IGenericObjectVO {
+    public getItem<ItemType extends IGenericObjectVO = IGenericObjectVO>(type: string, id: string): ItemType {
         const typeModel: GenericObjectsModel = this.getModelForType(type);
-        return typeModel.getItem(id);
+        return typeModel.getItem(id) as ItemType;
     }
 
-    public getItemsForType(type: string): IGenericObjectVO[] {
+    public getItemsForType<ItemType extends IGenericObjectVO = IGenericObjectVO>(type: string): ItemType[] {
         const typeModel: GenericObjectsModel = this.getModelForType(type);
-        return typeModel.getItems();
+        return typeModel.getItems() as ItemType[];
     }
 
     public mapModelToType(model: GenericObjectsModel, type: string): void {
