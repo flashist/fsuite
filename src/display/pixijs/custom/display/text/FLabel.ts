@@ -107,6 +107,12 @@ export class FLabel extends FContainer {
                 textField.style.dropShadow = false;
             }
 
+            if (this.config.align) {
+                textField.style.align = this.config.align;
+            } else {
+                textField.style.align = Align.LEFT;
+            }
+
             textField.scale.set(this.scaleFactor);
         }
 
@@ -262,7 +268,8 @@ export class FLabel extends FContainer {
 
         this.config.align = value;
 
-        this.arrange();
+        // this.arrange();
+        this.applyStyle();
     }
 
 
