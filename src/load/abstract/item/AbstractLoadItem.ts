@@ -5,7 +5,7 @@ import {ILoadItemConfig} from "./ILoadItemConfig";
 import {LoadStatus} from "../LoadStatus";
 import {IErrorVO} from "../data/IErrorVO";
 
-export abstract class LoadItem extends BaseObject {
+export abstract class AbstractLoadItem extends BaseObject {
 
     progress: number;
     data: any;

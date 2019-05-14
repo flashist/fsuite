@@ -4,10 +4,10 @@ import * as WebFont from "webfontloader";
 
 import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
-import {LoadItem} from "../../abstract/item/LoadItem";
+import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 import {IFontLoadItemConfig} from "../../abstract/item/IFontLoadItemConfig";
 
-export class FontLoadItem extends LoadItem {
+export class FontLoadItem extends AbstractLoadItem {
 
     public config: IFontLoadItemConfig;
 

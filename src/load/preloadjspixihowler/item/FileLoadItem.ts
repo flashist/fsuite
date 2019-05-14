@@ -1,8 +1,8 @@
 import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
-import {LoadItem} from "../../abstract/item/LoadItem";
+import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
-export class FileLoadItem extends LoadItem {
+export class FileLoadItem extends AbstractLoadItem {
 
     protected queue: createjs.LoadQueue;
 

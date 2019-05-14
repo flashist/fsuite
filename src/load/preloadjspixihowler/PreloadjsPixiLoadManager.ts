@@ -1,5 +1,5 @@
-import {LoadManager as AbstractLoadManager} from "../abstract/LoadManager";
-import {LoadFactory as AbstractLoadFactory} from "../abstract/LoadFactory";
+import {AbstractLoadManager} from "../abstract/AbstractLoadManager";
+import {AbstractLoadFactory} from "../abstract/AbstractLoadFactory";
 import {PreloadjsPixiLoadFactory} from "./PreloadjsPixiLoadFactory";
 
 export class PreloadjsPixiLoadManager extends AbstractLoadManager {

@@ -1,6 +1,6 @@
-import {LoadItem} from "../../abstract/item/LoadItem";
+import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
-export class PixiImageLoadItem extends LoadItem {
+export class PixiImageLoadItem extends AbstractLoadItem {
 
     protected loader: PIXI.loaders.Loader;
 

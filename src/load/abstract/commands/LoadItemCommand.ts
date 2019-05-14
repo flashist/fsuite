@@ -1,6 +1,6 @@
 import {Command} from "fcore";
 import {
-    LoadItem,
+    AbstractLoadItem,
     getInstance,
     Loader,
     LoaderEvent,
@@ -24,7 +24,7 @@ export class LoadItemCommand extends Command {
         this.eventListenerHelper.addEventListener(
             tempLoader,
             LoaderEvent.ITEM_COMPLETE,
-            (item: LoadItem) => {
+            (item: AbstractLoadItem) => {
                 if (item.config.src == this.loadConfig.src) {
                     this.notifyComplete(item.data);
                 }
@@ -35,7 +35,7 @@ export class LoadItemCommand extends Command {
             LoaderEvent.ERROR,
             () => {
                 console.error("LoadCommand | executeInternal __ PRELOAD LOADING ERROR!");
-                let tempItem: LoadItem = tempLoader.getCurrentLoadingItem();
+                let tempItem: AbstractLoadItem = tempLoader.getCurrentLoadingItem();
                 if (tempItem.config.src === this.loadConfig.src) {
                     this.errorCode = tempItem.errorData.errorCode;
                     this.notifyComplete(null, tempItem.errorData);

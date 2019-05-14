@@ -4,10 +4,13 @@ export interface ILoadItemConfig {
     id?: string;
     basePath?: string;
     fileType?: string;
+    extensions?: string[];
 
     priority?: number;
     loadGroup?: string;
     labels?: string[];
 
     uniqueId?: string;
+
+
 }

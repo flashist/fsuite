@@ -1,11 +1,11 @@
 import {BaseObject, EventListenerHelper} from "fcore";
 
-import {LoadItem} from "./item/LoadItem";
+import {AbstractLoadItem} from "./item/AbstractLoadItem";
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {LoaderQueue} from "./LoaderQueue";
 import {LoadStatus} from "./LoadStatus";
 import {LoadItemEvent} from "./item/LoadItemEvent";
-import {LoadFactory} from "./LoadFactory";
+import {AbstractLoadFactory} from "./AbstractLoadFactory";
 import {LoaderEvent} from "./LoaderEvent";
 
 export class Loader extends BaseObject {
@@ -16,7 +16,7 @@ export class Loader extends BaseObject {
 
     public stopOnError: boolean = false;
 
-    protected curItem: LoadItem;
+    protected curItem: AbstractLoadItem;
     protected curItemEventListenerHelper: EventListenerHelper<string>;
 
     public autoStartOnAdd: boolean = true;
@@ -51,11 +51,11 @@ export class Loader extends BaseObject {
         }
     }
 
-    add(config: ILoadItemConfig): LoadItem {
-        let result: LoadItem = this.queue.get(config);
+    add(config: ILoadItemConfig): AbstractLoadItem {
+        let result: AbstractLoadItem = this.queue.get(config);
 
         if (!result) {
-            result = LoadFactory.instance.createItem(config);
+            result = AbstractLoadFactory.instance.createItem(config);
             this.queue.add(result);
         }
 
@@ -67,7 +67,7 @@ export class Loader extends BaseObject {
     }
 
     protected loadNext(): void {
-        let tempItem: LoadItem = this.queue.getNextToLoad();
+        let tempItem: AbstractLoadItem = this.queue.getNextToLoad();
         if (tempItem) {
             this.load(tempItem);
 
@@ -79,7 +79,7 @@ export class Loader extends BaseObject {
         }
     }
 
-    protected load(item: LoadItem): void {
+    protected load(item: AbstractLoadItem): void {
         this.curItem = item;
         this.addCurItemListeners();
 
@@ -146,7 +146,7 @@ export class Loader extends BaseObject {
         }
     }
 
-    public getCurrentLoadingItem(): LoadItem {
+    public getCurrentLoadingItem(): AbstractLoadItem {
         return this.queue.getNextToLoad();
     }
 }

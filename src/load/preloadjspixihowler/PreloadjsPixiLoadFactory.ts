@@ -1,19 +1,18 @@
-import {
-    LoadFactory as AbstractLoadFactory
-} from "../abstract/LoadFactory";
-import {LoadItem} from "../abstract/item/LoadItem";
+import {AbstractLoadFactory} from "../abstract/AbstractLoadFactory";
+import {AbstractLoadItem} from "../abstract/item/AbstractLoadItem";
 import {ILoadItemConfig} from "../abstract/item/ILoadItemConfig";
 import {FileLoadItem} from "./item/FileLoadItem";
 import {FileType} from "../abstract/data/FileType";
 import {PixiImageLoadItem} from "./item/PixiImageLoadItem";
 import {FontLoadItem} from "./item/FontLoadItem";
+import {HowlerSoundLoadItem} from "./item/HowlerSoundLoadItem";
 
 export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
 
-    createItem(config: ILoadItemConfig): LoadItem {
+    createItem(config: ILoadItemConfig): AbstractLoadItem {
         // Only FileLoadItem, until other loaders are implemented
 
-        let result: LoadItem;
+        let result: AbstractLoadItem;
 
         if (this.basePath) {
             config.basePath = this.basePath;
@@ -26,6 +25,9 @@ export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
                 break;
             case FileType.FONT:
                 result = new FontLoadItem(config);
+                break;
+            case FileType.SOUND:
+                result = new HowlerSoundLoadItem(config);
                 break;
             default:
                 result = new FileLoadItem(config);

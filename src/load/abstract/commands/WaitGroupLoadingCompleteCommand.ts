@@ -1,6 +1,6 @@
 import {Command} from "fcore";
 import {
-    LoadItem,
+    AbstractLoadItem,
     getInstance,
     Loader,
     LoaderEvent,

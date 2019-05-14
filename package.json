@@ -13,6 +13,8 @@
     "build": "gulp"
   },
   "dependencies": {
+    "@types/gsap": "^1.20.2",
+    "@types/howler": "^2.1.0",
     "@types/pixi.js": "4.5.x",
     "@types/preloadjs": "0.x",
     "fcore": "0.x",

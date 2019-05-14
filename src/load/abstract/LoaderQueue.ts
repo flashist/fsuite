@@ -1,18 +1,18 @@
 import {AssociativeArray} from "fcore";
 
-import {LoadItem} from "./item/LoadItem";
+import {AbstractLoadItem} from "./item/AbstractLoadItem";
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {LoadTools} from "../tools/LoadTools";
 
 export class LoaderQueue {
 
-    public items: AssociativeArray<LoadItem> = new AssociativeArray<LoadItem>();
-    public itemsToLoad: AssociativeArray<LoadItem> = new AssociativeArray<LoadItem>();
-    public loadedItems: AssociativeArray<LoadItem> = new AssociativeArray<LoadItem>();
+    public items: AssociativeArray<AbstractLoadItem> = new AssociativeArray<AbstractLoadItem>();
+    public itemsToLoad: AssociativeArray<AbstractLoadItem> = new AssociativeArray<AbstractLoadItem>();
+    public loadedItems: AssociativeArray<AbstractLoadItem> = new AssociativeArray<AbstractLoadItem>();
 
     protected isNeedSort:boolean;
 
-    public add(item: LoadItem): void {
+    public add(item: AbstractLoadItem): void {
         this.isNeedSort = true;
 
         this.items.push(
@@ -25,12 +25,12 @@ export class LoaderQueue {
         );
     }
 
-    public get(config: ILoadItemConfig): LoadItem {
+    public get(config: ILoadItemConfig): AbstractLoadItem {
         const tempId: string = LoadTools.getUniqueLoadingId(config);
         return this.items.getItem(tempId);
     }
 
-    public getNextToLoad(): LoadItem {
+    public getNextToLoad(): AbstractLoadItem {
         if (this.isNeedSort) {
             this.sortItems();
         }
@@ -40,7 +40,7 @@ export class LoaderQueue {
 
     protected sortItems(): void {
         this.itemsToLoad.sort(
-            (item1: LoadItem, item2: LoadItem): number => {
+            (item1: AbstractLoadItem, item2: AbstractLoadItem): number => {
                 let result: number = 0;
 
                 if (item1.config.priority && item2.config.priority) {
@@ -56,7 +56,7 @@ export class LoaderQueue {
         );
     }
 
-    public onItemLoad(item: LoadItem): void {
+    public onItemLoad(item: AbstractLoadItem): void {
         if (this.items.indexOf(item) === -1) {
             return;
         }
