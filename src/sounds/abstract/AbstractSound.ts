@@ -2,7 +2,9 @@ import {BaseObject} from "fcore";
 
 import {Howl} from "howler";
 import {TweenLite} from "gsap";
+
 import {ISoundConfig} from "./ISoundConfig";
+import {IPlaySoundConfig} from "./IPlaySoundConfig";
 
 export abstract class AbstractSound extends BaseObject {
 
@@ -19,10 +21,15 @@ export abstract class AbstractSound extends BaseObject {
         this.config = config;
     }
 
-    abstract play(): void;
+    abstract play(config?: IPlaySoundConfig): void;
     abstract stop(): void;
     abstract getVolume(): number;
-    abstract setVolume(value: number): void;
+
+    public setVolume(value: number): void {
+        TweenLite.killTweensOf(this);
+        this.internalSetVolume(value);
+    }
+    protected abstract internalSetVolume(value: number): void;
 
     public tweenVolume(volume: number, time: number, onComplete?: Function): void {
         this.tweenVolumeValue = this.getVolume();
@@ -43,16 +50,16 @@ export abstract class AbstractSound extends BaseObject {
         );
     }
 
-    get tweenVolumeValue(): number {
+    protected get tweenVolumeValue(): number {
         return this._tweenVolumeValue;
     }
-    set tweenVolumeValue(value: number) {
+    protected set tweenVolumeValue(value: number) {
         if (value === this._tweenVolumeValue) {
             return;
         }
 
         this._tweenVolumeValue = value;
-        this.setVolume(this._tweenVolumeValue);
+        this.internalSetVolume(this._tweenVolumeValue);
     }
 
     /*public getLoadingStatus(): LoadStatus {

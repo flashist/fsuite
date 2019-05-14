@@ -43,7 +43,7 @@ export * from './locale/LocaleManager'
 
 export * from './html/tools/HtmlTools'
 
-export * from './sounds/abstract/SoundsManager'
+export * from './sounds/abstract/AbstractSoundsManager'
 export * from './sounds/abstract/ISoundConfig'
 
 // Graphics/Loader/Sound Adapters
@@ -96,3 +96,4 @@ export * from './display/pixijs/custom/display/text/FLabel'
 export * from './display/pixijs/custom/FApp'
 
 export {HowlerSound as Sound} from './sounds/howler/HowlerSound';
+export {HowlerSoundsManager as SoundsManager} from './sounds/howler/HowlerSoundsManager';

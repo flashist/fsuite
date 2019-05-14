@@ -10,6 +10,10 @@ import {getInstance, SoundsManager} from "../../../index";
 
 export class HowlerSoundLoadItem extends AbstractSoundLoadItem {
 
+    // TODO: figure out how it would be possible to separate sounds and loading-sounds classes,
+    // at least without using injection, as injection might not be prepared for the sounds manager
+    // if we remove injection here, we might add injection to the sounds manager itself,
+    // but it would not resolve the problem, only relocate it
     protected soundsManager: SoundsManager = getInstance(SoundsManager);
 
     public sound: HowlerSound;

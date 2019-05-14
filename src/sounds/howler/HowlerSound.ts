@@ -3,6 +3,7 @@ import {Howl} from "howler";
 import {AbstractSound} from "../abstract/AbstractSound";
 import {IHowlerSoundConfig} from "./IHowlerSoundConfig";
 import {ISoundConfig} from "../..";
+import {IPlaySoundConfig} from "../abstract/IPlaySoundConfig";
 
 export class HowlerSound extends AbstractSound {
 
@@ -33,11 +34,12 @@ export class HowlerSound extends AbstractSound {
         return this.engineSound.volume();
     }
 
-    setVolume(value: number): void {
+    protected internalSetVolume(value: number): void {
         this.engineSound.volume(value);
     }
 
-    play(): void {
+    play(config?: IPlaySoundConfig): void {
+        this.engineSound.loop(config.loop);
         this.engineSound.play();
     }
 
