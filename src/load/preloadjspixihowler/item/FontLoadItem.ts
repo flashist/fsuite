@@ -51,6 +51,12 @@ export class FontLoadItem extends AbstractLoadItem {
         };
         this.fontLoadingConfig.fontactive = (familyName: string, fontValidationDescription: string) => {
             console.log("FontLoadItem | fontactive __ familyName: ", familyName);
+            /*setTimeout(
+                () => {
+                    this.processLoadingComplete(familyName);
+                },
+                5000
+            );*/
             this.processLoadingComplete(familyName);
         };
         this.fontLoadingConfig.fontinactive = (familyName: string, fontValidationDescription: string) => {
