@@ -39,7 +39,7 @@ export class HowlerSoundLoadItem extends AbstractSoundLoadItem {
         }
 
         this.sound = new HowlerSound({
-            id: this.config.id || this.config.src,
+            id: this.config.id,
             src: src,
             preload: false
         });

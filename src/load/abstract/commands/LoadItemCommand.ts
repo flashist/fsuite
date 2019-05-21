@@ -1,14 +1,9 @@
 import {Command} from "fcore";
-import {
-    AbstractLoadItem,
-    getInstance,
-    Loader,
-    LoaderEvent,
-    LoadManager,
-    ILoadItemConfig
-} from "../../..";
+import {AbstractLoadItem, getInstance, ILoadItemConfig, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
 
 export class LoadItemCommand extends Command {
+
+    public loadItem: AbstractLoadItem;
 
     constructor(protected loadConfig: ILoadItemConfig) {
         super();
@@ -19,31 +14,32 @@ export class LoadItemCommand extends Command {
 
         let loadManager: LoadManager = getInstance(LoadManager);
 
-        let tempLoader: Loader = loadManager.getLoaderForGroup(this.loadConfig.loadGroup);
-        tempLoader.add(this.loadConfig);
+        this.loadItem = loadManager.add(this.loadConfig);
         this.eventListenerHelper.addEventListener(
-            tempLoader,
-            LoaderEvent.ITEM_COMPLETE,
-            (item: AbstractLoadItem) => {
-                if (item.config.src == this.loadConfig.src) {
-                    this.notifyComplete(item.data);
-                }
-            }
-        );
-        this.eventListenerHelper.addEventListener(
-            tempLoader,
-            LoaderEvent.ERROR,
+            this.loadItem,
+            LoadStatusEvent.STATUS_CHANGE,
             () => {
-                console.error("LoadCommand | executeInternal __ PRELOAD LOADING ERROR!");
-                let tempItem: AbstractLoadItem = tempLoader.getCurrentLoadingItem();
-                if (tempItem.config.src === this.loadConfig.src) {
-                    this.errorCode = tempItem.errorData.errorCode;
-                    this.notifyComplete(null, tempItem.errorData);
-                }
+                this.processFinalStatus();
             }
         );
 
-        tempLoader.start();
+        this.processFinalStatus();
+    }
+
+    protected processFinalStatus(): void {
+        if (this.loadItem.status === LoadStatus.COMPLETE) {
+            this.processComplete();
+        } else if (this.loadItem.status === LoadStatus.ERROR) {
+            this.processError();
+        }
+    }
+
+    protected processComplete(): void {
+        this.notifyComplete(this.loadItem.data);
+    }
+
+    protected processError(): void {
+        this.notifyComplete(null, this.loadItem.errorData);
     }
 
 }

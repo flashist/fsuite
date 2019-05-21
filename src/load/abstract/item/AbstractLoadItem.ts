@@ -1,9 +1,10 @@
 import {BaseObject, EventListenerHelper} from "fcore";
 
-import {LoadItemEvent} from "./LoadItemEvent";
 import {ILoadItemConfig} from "./ILoadItemConfig";
-import {LoadStatus} from "../LoadStatus";
+import {LoadStatus} from "../loadstatus/LoadStatus";
 import {IErrorVO} from "../data/IErrorVO";
+import {LoadStatusEvent} from "../loadstatus/LoadStatusEvent";
+import {LoadEvent} from "../LoadEvent";
 
 export abstract class AbstractLoadItem extends BaseObject {
 
@@ -11,7 +12,7 @@ export abstract class AbstractLoadItem extends BaseObject {
     data: any;
     errorData: IErrorVO;
 
-    status: LoadStatus;
+    private _status: LoadStatus = LoadStatus.WAIT;
 
     protected eventListenerHelper: EventListenerHelper;
 
@@ -67,7 +68,7 @@ export abstract class AbstractLoadItem extends BaseObject {
     protected processLoadingProgress(progress: number): void {
         this.progress = progress;
 
-        this.dispatchEvent(LoadItemEvent.PROGRESS);
+        this.dispatchEvent(LoadEvent.PROGRESS);
     }
 
     protected processLoadingComplete(data: any): void {
@@ -76,7 +77,7 @@ export abstract class AbstractLoadItem extends BaseObject {
 
         this.removeLoadingListeners();
 
-        this.dispatchEvent(LoadItemEvent.COMPLETE, data);
+        this.dispatchEvent(LoadEvent.COMPLETE, data);
     }
 
     protected processLoadingError(errorData: IErrorVO): void {
@@ -85,11 +86,24 @@ export abstract class AbstractLoadItem extends BaseObject {
 
         this.removeLoadingListeners();
 
-        this.dispatchEvent(LoadItemEvent.ERROR);
+        this.dispatchEvent(LoadEvent.ERROR);
     }
 
     public getIsSuccess(): boolean {
         return !this.errorData;
+    }
+
+    get status(): LoadStatus {
+        return this._status;
+    }
+    set status(value: LoadStatus) {
+        if (value === this.status) {
+            return;
+        }
+
+        this._status = value;
+
+        this.dispatchEvent(LoadStatusEvent.STATUS_CHANGE);
     }
 
     /*public onComplete(data: any): void {

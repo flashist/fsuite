@@ -1,16 +1,9 @@
 import {Command} from "fcore";
-import {
-    AbstractLoadItem,
-    getInstance,
-    Loader,
-    LoaderEvent,
-    LoadManager,
-    LoadStatus
-} from "../../..";
+import {getInstance, LoadGroup, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
 
 export class WaitGroupLoadingCompleteCommand extends Command {
 
-    constructor(protected group: string) {
+    constructor(protected groupName: string) {
         super();
     }
 
@@ -19,16 +12,18 @@ export class WaitGroupLoadingCompleteCommand extends Command {
 
         let loadManager: LoadManager = getInstance(LoadManager);
 
-        let tempLoader: Loader = loadManager.getLoaderForGroup(this.group);
-        if (tempLoader.status === LoadStatus.COMPLETE) {
+        let tempGroup: LoadGroup = loadManager.getGroup(this.groupName);
+        if (tempGroup.status === LoadStatus.COMPLETE) {
             this.notifyComplete();
 
         } else {
             this.eventListenerHelper.addEventListener(
-                tempLoader,
-                LoaderEvent.COMPLETE,
+                tempGroup,
+                LoadStatusEvent.STATUS_CHANGE,
                 () => {
-                    this.notifyComplete();
+                    if (tempGroup.status === LoadStatus.COMPLETE) {
+                        this.notifyComplete();
+                    }
                 }
             );
         }

@@ -1,16 +1,17 @@
 export interface ILoadItemConfig {
     src: string;
 
-    id?: string;
+    id: string;
     basePath?: string;
     fileType?: string;
     extensions?: string[];
 
     priority?: number;
-    loadGroup?: string;
-    labels?: string[];
+    loader?: string;
+    loadGroups?: string[];
 
     uniqueId?: string;
 
+    loadWeight?: number;
 
 }

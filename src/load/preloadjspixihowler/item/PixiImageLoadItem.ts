@@ -12,7 +12,7 @@ export class PixiImageLoadItem extends AbstractLoadItem {
     protected internalPrepare(): void {
         this.loader = new PIXI.loaders.Loader(this.config.basePath);
         this.loader.add(
-            this.config.id || this.config.src,
+            this.config.id,
             this.config.src
         );
     }

@@ -3,16 +3,18 @@ import {BaseObject, EventListenerHelper} from "fcore";
 import {AbstractLoadItem} from "./item/AbstractLoadItem";
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {LoaderQueue} from "./LoaderQueue";
-import {LoadStatus} from "./LoadStatus";
-import {LoadItemEvent} from "./item/LoadItemEvent";
 import {AbstractLoadFactory} from "./AbstractLoadFactory";
-import {LoaderEvent} from "./LoaderEvent";
+import {LoadStatus} from "./loadstatus/LoadStatus";
+import {LoadStatusEvent} from "./loadstatus/LoadStatusEvent";
+import {LoadEvent} from "./LoadEvent";
+import {LoadGroup} from "./group/LoadGroup";
 
 export class Loader extends BaseObject {
 
-    protected queue:LoaderQueue = new LoaderQueue();
+    public id: string;
 
-    public status: LoadStatus = LoadStatus.WAIT;
+    protected queue:LoaderQueue;
+    protected group: LoadGroup;
 
     public stopOnError: boolean = false;
 
@@ -21,31 +23,63 @@ export class Loader extends BaseObject {
 
     public autoStartOnAdd: boolean = true;
 
-    construction(...args): void {
-        super.construction(...args);
+    constructor(id: string) {
+        super(id);
+    }
+
+    construction(id: string): void {
+        super.construction();
+
+        this.id = id;
+        this.group = new LoadGroup(this.id);
+        this.queue = new LoaderQueue();
 
         this.curItemEventListenerHelper = new EventListenerHelper<string>(this);
     }
 
-    public start(): void {
-        if (this.status === LoadStatus.LOADING) {
-            return;
-        }
-        this.status = LoadStatus.LOADING;
+    destruction(): void {
+        super.destruction();
 
-        if (this.curItem) {
-            this.load(this.curItem)
-        } else {
-            this.loadNext();
+        if (this.curItemEventListenerHelper) {
+            this.curItemEventListenerHelper.destruction();
+            this.curItemEventListenerHelper = null;
         }
     }
 
-    public stop(): void {
-        if (this.status === LoadStatus.WAIT) {
-            return;
-        }
-        this.status = LoadStatus.WAIT;
+    protected addListeners(): void {
+        super.addListeners();
 
+        this.eventListenerHelper.addEventListener(
+            this.group,
+            LoadStatusEvent.STATUS_CHANGE,
+            this.onGroupStatusChange
+        );
+
+        this.eventListenerHelper.addEventListener(
+            this.group,
+            LoadEvent.PROGRESS,
+            this.onGroupStatusChange
+        );
+    }
+
+    protected onGroupStatusChange(): void {
+        this.dispatchEvent(LoadStatusEvent.STATUS_CHANGE);
+    }
+
+    protected onGroupProgress(): void {
+        this.dispatchEvent(LoadEvent.PROGRESS);
+    }
+
+    public start(): void {
+        /*if (this.curItem) {
+            this.load(this.curItem)
+        } else {
+            this.loadNext();
+        }*/
+        this.loadNext();
+    }
+
+    public stop(): void {
         if (this.curItem) {
             this.curItem.stop();
         }
@@ -59,8 +93,10 @@ export class Loader extends BaseObject {
             this.queue.add(result);
         }
 
-        if (this.status === LoadStatus.WAIT) {
-            this.start();
+        if (this.status !== LoadStatus.LOADING) {
+            if (this.autoStartOnAdd) {
+                this.start();
+            }
         }
 
         return result;
@@ -72,10 +108,7 @@ export class Loader extends BaseObject {
             this.load(tempItem);
 
         } else {
-            this.status = LoadStatus.COMPLETE;
             this.curItem = null;
-
-            this.dispatchEvent(LoaderEvent.COMPLETE);
         }
     }
 
@@ -93,21 +126,21 @@ export class Loader extends BaseObject {
             return;
         }
 
-        this.curItemEventListenerHelper.addEventListener(
+        /*this.curItemEventListenerHelper.addEventListener(
             this.curItem,
-            LoadItemEvent.PROGRESS,
+            LoadEvent.PROGRESS,
             this.onItemProgress
-        );
+        );*/
 
         this.curItemEventListenerHelper.addEventListener(
             this.curItem,
-            LoadItemEvent.COMPLETE,
+            LoadEvent.COMPLETE,
             this.onItemComplete
         );
 
         this.curItemEventListenerHelper.addEventListener(
             this.curItem,
-            LoadItemEvent.ERROR,
+            LoadEvent.ERROR,
             this.onItemError
         );
     }
@@ -120,25 +153,16 @@ export class Loader extends BaseObject {
         this.curItemEventListenerHelper.removeAllListeners(this.curItem);
     }
 
-    protected onItemProgress(): void {
-        this.dispatchEvent(LoaderEvent.PROGRESS);
-    }
-
     protected onItemComplete(): void {
-        this.dispatchEvent(LoaderEvent.ITEM_COMPLETE, this.curItem);
-
         this.queue.onItemLoad(this.curItem);
 
         this.loadNext();
     }
 
     protected onItemError(): void {
-        this.dispatchEvent(LoaderEvent.ERROR);
-
         this.queue.onItemLoad(this.curItem);
 
         if (this.stopOnError) {
-            this.status = LoadStatus.ERROR;
             this.stop();
 
         } else {
@@ -147,6 +171,14 @@ export class Loader extends BaseObject {
     }
 
     public getCurrentLoadingItem(): AbstractLoadItem {
-        return this.queue.getNextToLoad();
+        return this.curItem;
+    }
+
+    get status(): LoadStatus {
+        return this.group.status;
+    }
+
+    get progress(): number {
+        return this.group.progress;
     }
 }
