@@ -1,6 +1,8 @@
 ﻿import {IEventDispatcher, JSKeyboardEvent, BaseObject} from "fcore";
 import {
-    FApp
+    FApp,
+    InteractiveEvent,
+    Point
 } from "../../index";
 
 import {InputManagerEvent} from "./InputManagerEvent";
@@ -17,6 +19,12 @@ export class InputManager extends BaseObject {
 
     private isDataChanged: boolean;
 
+    private lastGlobalInteractionPos: Point;
+
+    protected constructor(...args) {
+        super(...args)
+    }
+
     protected addListeners(): void {
         super.addListeners();
 
@@ -29,6 +37,19 @@ export class InputManager extends BaseObject {
         this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_PRESS, this.onKeyPress);
         this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_UP, this.onKeyUp);
         // this.eventListenerHelper.addEventListener(SharedTicker, TickerEvent.TICK, this.onTick);
+
+        this.eventListenerHelper.addEventListener(
+            FApp.instance.stage,
+            InteractiveEvent.DOWN,
+            this.onStageDown
+        );
+
+        this.eventListenerHelper.addEventListener(
+            FApp.instance.stage,
+            InteractiveEvent.UP,
+            this.onStageUp
+        );
+
         FApp.instance.ticker.add(this.onTick, this);
     }
 
@@ -38,6 +59,16 @@ export class InputManager extends BaseObject {
         FApp.instance.ticker.remove(this.onTick, this);
     }
 
+
+    protected onStageUp(): void {
+        this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
+        this.dispatchEvent(InputManagerEvent.STAGE_UP, this.lastGlobalInteractionPos);
+    }
+
+    protected onStageDown(): void {
+        this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
+        this.dispatchEvent(InputManagerEvent.STAGE_DOWN, this.lastGlobalInteractionPos);
+    }
 
     protected onTick(): void {
         this.updateInput();
@@ -115,6 +146,9 @@ export class InputManager extends BaseObject {
         return this.pressedKeyCodes[keyCode];
     }
 
+    public getLastGlobalInteractionPos(): Point {
+        return this.lastGlobalInteractionPos;
+    }
 
     // Static
 
