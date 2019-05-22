@@ -50,6 +50,7 @@ export * from './locale/LocaleManager'
 
 export * from './html/tools/HtmlTools'
 
+export * from './sounds/abstract/SoundsManagerEvent'
 export * from './sounds/abstract/AbstractSoundsManager'
 export * from './sounds/abstract/ISoundConfig'
 

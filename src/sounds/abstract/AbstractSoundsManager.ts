@@ -3,6 +3,7 @@ import {Lock, AssociativeArray, BaseObject} from "fcore";
 import {TweenLite} from "gsap";
 
 import {Sound} from "../../index";
+import {SoundsManagerEvent} from "./SoundsManagerEvent";
 
 export abstract class AbstractSoundsManager extends BaseObject {
 
@@ -29,13 +30,29 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public addDisableLock(locker: any): void {
+        const prevEnabled: boolean = this.enabled;
+
         this.disableLock.lock(locker);
+        if (this.enabled !== prevEnabled) {
+            this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
+        }
+
         this.commitData();
     }
 
     public removeDisableLock(locker: any): void {
+        const prevEnabled: boolean = this.enabled;
+
         this.disableLock.unlock(locker);
+        if (this.enabled !== prevEnabled) {
+            this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
+        }
+
         this.commitData();
+    }
+
+    public get enabled(): boolean {
+        return !this.disableLock.isLocked;
     }
 
     protected volume: number = 1;
@@ -43,9 +60,9 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected commitData(): void {
         super.commitData();
 
-        let newVolume: number = this.getVolume();
-        if (this.disableLock.isLocked) {
-            newVolume = 0;
+        let newVolume: number = 0;
+        if (this.enabled) {
+            newVolume = this.getVolume();
         }
         // this.internalSetVolume(newVolume);
         this.internalSetVolume(newVolume)
@@ -58,6 +75,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
     public setVolume(value: number): void {
         TweenLite.killTweensOf(this);
         this.volume = value;
+
+        this.dispatchEvent(SoundsManagerEvent.VOLUME_CHANGE);
 
         this.commitData();
     }
