@@ -8,4 +8,6 @@ export interface ICreateConfig {
     forceCreation?: boolean;
 
     activateesConstructors?: IConstructor<IActivatee>[];
+
+    constructionArgs?: any[];
 }

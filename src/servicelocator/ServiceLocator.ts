@@ -47,8 +47,8 @@ export class ServiceLocator {
                         config.activateesConstructors.push(...toSubstituteInjection.config.activateesConstructors);
                     }
 
+                    // Copy properties TO THE FINAL substitution from the injection which will be substituted
                     ObjectTools.copyProps(config, toSubstituteInjection.config, true);
-
                 }
             }
 
@@ -76,9 +76,15 @@ export class ServiceLocator {
         let result: Type;
 
         let tempInjection: IInjection = ServiceLocator.getInjection(item);
+
+        let constructionArgs: any[];
+        if (tempInjection.config) {
+            constructionArgs
+        }
+
         if (tempInjection.config && tempInjection.config.isSingleton) {
             if (!tempInjection.singletonInstance) {
-                tempInjection.singletonInstance = (new tempInjection.item(...args) as Type);
+                tempInjection.singletonInstance = (new tempInjection.item(...tempInjection.config.constructionArgs) as Type);
             }
 
             result = tempInjection.singletonInstance;
