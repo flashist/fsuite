@@ -10,10 +10,14 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
 
     protected disableLock: Lock = new Lock();
+    private _isMuted: boolean = false;
+    private _enabled: boolean = true;
 
     private _tweenVolumeValue: number;
 
     public defaultTweenTime: number = 0.5;
+
+    protected volume: number = 1;
 
     protected construction(...args): void {
         super.construction(...args);
@@ -30,32 +34,49 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public addDisableLock(locker: any): void {
-        const prevEnabled: boolean = this.enabled;
-
         this.disableLock.lock(locker);
-        if (this.enabled !== prevEnabled) {
-            this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
-        }
 
-        this.commitData();
+        this.calculateEnabled();
     }
 
     public removeDisableLock(locker: any): void {
+        this.disableLock.unlock(locker);
+
+        this.calculateEnabled();
+    }
+
+
+    public get isMuted(): boolean {
+        return this._isMuted;
+    }
+
+    public set isMuted(value: boolean) {
+        if (value === this._isMuted) {
+            return;
+        }
+
+        this._isMuted = value;
+        this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
+
+        this.calculateEnabled();
+    }
+
+    public get enabled(): boolean {
+        return this._enabled;
+    }
+
+    protected calculateEnabled(): void {
         const prevEnabled: boolean = this.enabled;
 
-        this.disableLock.unlock(locker);
+        const newEnabled: boolean = !this.disableLock.isLocked && !this.isMuted;
+        this._enabled = newEnabled;
+
         if (this.enabled !== prevEnabled) {
             this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
         }
 
         this.commitData();
     }
-
-    public get enabled(): boolean {
-        return !this.disableLock.isLocked;
-    }
-
-    protected volume: number = 1;
 
     protected commitData(): void {
         super.commitData();
