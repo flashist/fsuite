@@ -23,6 +23,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
         super.construction(...args);
 
         this.disableLock = new Lock();
+
+        this.setVolume(this.volume);
     }
 
     public registerSound(id: string, sound: Sound): void {
