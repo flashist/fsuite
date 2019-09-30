@@ -23,11 +23,11 @@ export class LocaleManager {
 
     public addLocale(data: ILocaleConfig, localeId: string): void {
         // Support adding texts to the old localization
-        let oldLocale: ILocaleConfig = this.localeToIdMap[localeId];
-        if (!oldLocale) {
-            oldLocale = {
-                texts: {}
-            };
+        let oldLocale: ILocaleConfig = {
+            texts: {}
+        };
+        if (this.localeToIdMap[localeId]) {
+            oldLocale = this.localeToIdMap[localeId];
         }
 
         // ObjectTools.copyProps(oldLocale.texts, data.texts);
