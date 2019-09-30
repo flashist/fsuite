@@ -1,5 +1,4 @@
-﻿
-import {
+﻿﻿import {
     StringTools
 } from "fcore";
 
@@ -11,40 +10,43 @@ import {getInstance} from "../servicelocator/ServiceLocator";
 
 export class LocaleManager {
 
-    protected localeToIdMap:any;
+    protected localeToIdMap: any;
 
-    private _currentLanguage:string;
-    protected currentLocale:ILocaleConfig;
+    private _currentLanguage: string;
+    protected currentLocale: ILocaleConfig;
 
     public constructor() {
         this.localeToIdMap = {};
 
         this.setCurrentLanguage("");
     }
-    
-    public addLocale(data:ILocaleConfig):void {
-        // Support adding texts to the old localization
-        if (this.localeToIdMap[data.language]) {
-            var oldLocale:ILocaleConfig = (this.localeToIdMap[data.language] as ILocaleConfig);
-            // ObjectTools.copyProps(oldLocale.texts, data.texts);
-            (Object as any).assign(
-                oldLocale.texts,
-                data.texts
-            );
 
-        } else {
-            this.localeToIdMap[data.language] = data;
+    public addLocale(data: ILocaleConfig, localeId: string): void {
+        // Support adding texts to the old localization
+        let oldLocale: ILocaleConfig = this.localeToIdMap[localeId];
+        if (!oldLocale) {
+            oldLocale = {
+                texts: {}
+            };
         }
+
+        // ObjectTools.copyProps(oldLocale.texts, data.texts);
+        (Object as any).assign(
+            oldLocale.texts,
+            data.texts
+        );
+
+        this.localeToIdMap[localeId] = oldLocale;
 
         this.commitLocaleData();
     }
 
 
-    public getCurrentLanguage():string {
+    public getCurrentLanguage(): string {
         return this._currentLanguage;
     }
 
-    public setCurrentLanguage(value:string) {
+    public setCurrentLanguage(value: string) {
         if (value == this._currentLanguage) {
             return;
         }
@@ -55,13 +57,13 @@ export class LocaleManager {
     }
 
 
-    protected commitLocaleData():void {
+    protected commitLocaleData(): void {
         this.currentLocale = this.localeToIdMap[this._currentLanguage];
     }
 
 
-    public getText(textId:string, params:any = null):string {
-        var result:string = "";
+    public getText(textId: string, params: any = null): string {
+        var result: string = "";
         if (this.currentLocale) {
             if (this.currentLocale.texts[textId]) {
                 result = this.currentLocale.texts[textId];
@@ -72,8 +74,8 @@ export class LocaleManager {
         return result;
     }
 
-    protected format(str:string, params:any = null):string {
-        var res:string = str;
+    protected format(str: string, params: any = null): string {
+        var res: string = str;
 
         // Change links by key L on the specific locales
         res = res.replace(/(\d+)L/gi, this.replaceRegExpKeyByStrings);
@@ -89,11 +91,11 @@ export class LocaleManager {
         return res;
     }
 
-    protected replaceRegExpKeyByStrings(substring:string, ...params):string {
+    protected replaceRegExpKeyByStrings(substring: string, ...params): string {
         return this.currentLocale.texts[substring];
     }
 }
 
-export function getText(textId:string, params:any = null):string {
+export function getText(textId: string, params: any = null): string {
     return (getInstance(LocaleManager) as LocaleManager).getText(textId, params);
 };

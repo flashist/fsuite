@@ -1,4 +1,4 @@
-﻿export class ILocaleConfig {
-    language:string;
-    texts:any;
+﻿﻿export class ILocaleConfig {
+    // language:string;
+    texts: any;
 }
