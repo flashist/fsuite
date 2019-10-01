@@ -52,8 +52,11 @@ export class ServiceLocator {
                 }
             }
 
-            tempInjection.config = config;
+        } else {
+            config = {};
         }
+
+        tempInjection.config = config;
 
         /*if (config) {
             tempInjection.config = config;
