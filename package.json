@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/webfontloader": "^1.6.29",
     "del": "^3.0.0",
+    "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-file": "^0.3.0",
     "gulp-map": "0.0.2",
