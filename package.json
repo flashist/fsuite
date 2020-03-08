@@ -17,12 +17,12 @@
     "@types/howler": "^2.1.0",
     "@types/pixi.js": "4.5.x",
     "@types/preloadjs": "0.x",
-    "fcore": "0.x",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@types/webfontloader": "^1.6.29",
     "del": "^3.0.0",
+    "fcore": "0.0.x",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-file": "^0.3.0",

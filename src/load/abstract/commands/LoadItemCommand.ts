@@ -10,8 +10,6 @@ export class LoadItemCommand extends Command {
     }
 
     protected executeInternal(): void {
-        super.executeInternal();
-
         let loadManager: LoadManager = getInstance(LoadManager);
 
         this.loadItem = loadManager.add(this.loadConfig);

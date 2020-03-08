@@ -8,8 +8,6 @@ export class WaitGroupLoadingCompleteCommand extends Command {
     }
 
     protected executeInternal(): void {
-        super.executeInternal();
-
         let loadManager: LoadManager = getInstance(LoadManager);
 
         let tempGroup: LoadGroup = loadManager.getGroup(this.groupName);
