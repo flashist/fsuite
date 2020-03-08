@@ -5,7 +5,7 @@ var map = require("gulp-map");
 
 gulp.task(
     "generate-definitions",
-    (cb) => {
+    async (cb) => {
 
         // console.log("START! generate-definitions.js");
 
@@ -34,39 +34,46 @@ gulp.task(
 
         var outFileName = argv.outFile + ".ts";
         // console.log("outFileName: " + outFileName);
+        // Remove prev index file
+        await fs.unlinkSync(basePath + outFileName);
 
         var resultDeclarationText = "";
 
         // console.log("Imported files:");
-        var tempSettings = [argv.src + "**/*.ts", "!./**/*.d.ts"];
+        var tempSettings = [argv.src + "**/*.ts", "!./!**/!*.d.ts"];
 
-        return gulp.src(tempSettings)
-                .pipe(
-                    map(
-                        (file) => {
-                            let importPath = path.relative(basePath, file.path);
-                            if (importPath.indexOf(".d.ts") != -1) {
-                                importPath = importPath.substr(0, importPath.lastIndexOf(".d.ts"));
-                            } else if (importPath.indexOf(".ts") != -1) {
-                                importPath = importPath.substr(0, importPath.lastIndexOf(".ts"));
-                            }
-                            // console.log("- " + importPath);
-
-                            resultDeclarationText += "export * from '" + "./" + importPath + "'";
-                            resultDeclarationText += "\n";
+        gulp.src(tempSettings)
+            .pipe(
+                map(
+                    (file) => {
+                        let importPath = path.relative(basePath, file.path);
+                        if (importPath.indexOf(".d.ts") != -1) {
+                            importPath = importPath.substr(0, importPath.lastIndexOf(".d.ts"));
+                        } else if (importPath.indexOf(".ts") != -1) {
+                            importPath = importPath.substr(0, importPath.lastIndexOf(".ts"));
                         }
-                    )
-                )
-                .on(
-                    "end",
-                    () => {
-                        /*fs.writeFile(
-                            argv.outDir + outFileName,
-                            resultDeclarationText
-                        );*/
-                        console.log("Declarations: ");
-                        console.log(resultDeclarationText);
+                        // console.log("- " + importPath);
+
+                        resultDeclarationText += "export * from '" + "./" + importPath + "'";
+                        resultDeclarationText += "\n";
                     }
-                );
+                )
+            )
+            .on(
+                "end",
+                () => {
+                    console.log("Declarations: ");
+                    console.log(resultDeclarationText);
+
+                    fs.writeFile(
+                        argv.outDir + outFileName,
+                        resultDeclarationText,
+                        () => {
+                            console.log("WRITE COMPLETE!");
+                            cb();
+                        }
+                    );
+                }
+            );
     }
 );
