@@ -17,7 +17,6 @@
     "@types/createjs": "0.0.29",
     "@types/gsap": "^1.20.2",
     "@types/howler": "^2.1.0",
-    "@types/pixi.js": "4.5.x",
     "fcore": "0.x",
     "webfontloader": "^1.6.28"
   },
@@ -32,6 +31,7 @@
     "gulp-typescript": "^3.2.4",
     "map-stream": "0.0.7",
     "native": "^0.3.3",
+    "pixi.js": "^5.2.1",
     "require-dir": "^0.3.2",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",

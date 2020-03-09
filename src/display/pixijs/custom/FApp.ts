@@ -5,8 +5,6 @@ import {
     Point
 } from "../../../index";
 
-import {RendererPlugins} from "pixi.js";
-
 export class FApp extends App {
 
     private static _instance: FApp;
@@ -17,7 +15,7 @@ export class FApp extends App {
     protected lastTimeRendered: number = 0;
     protected targetRenderInterval: number;
 
-    constructor(protected options: AppProperties) {
+    constructor(protected options: any | AppProperties) {
         super(options);
 
         if (this.options.targetFps) {
@@ -47,7 +45,7 @@ export class FApp extends App {
 
     public getGlobalInteractionPosition(): Point {
         // return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
-        return (this.renderer.plugins as RendererPlugins).interaction.eventData.data.global.clone();
+        return this.renderer.plugins.interaction.eventData.data.global.clone();
     }
 
 

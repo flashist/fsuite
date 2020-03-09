@@ -73,7 +73,7 @@ export class FLabel extends FContainer {
                 }
             );
         } else {
-            this.field = new Text();
+            this.field = new Text("");
         }
         this.applyStyle();
 

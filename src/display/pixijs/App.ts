@@ -1,5 +1,5 @@
-import {Application as App} from "pixi.js";
+import {Application} from "pixi.js";
 
 export {
-    App
+    Application as App
 };

@@ -1,6 +1,4 @@
-import {ApplicationOptions} from "pixi.js";
-
-export interface AppProperties extends ApplicationOptions {
+export interface AppProperties {
 
     targetFps?: number;
 

@@ -1,5 +1,4 @@
-import {extras} from "pixi.js";
-import BitmapText = extras.BitmapText;
+import {BitmapText} from "pixi.js";
 
 export {
     BitmapText
