@@ -15,7 +15,7 @@ export class FApp extends App {
     protected lastTimeRendered: number = 0;
     protected targetRenderInterval: number;
 
-    constructor(protected options: any | AppProperties) {
+    constructor(protected options?: any | AppProperties) {
         super(options);
 
         if (this.options.targetFps) {
