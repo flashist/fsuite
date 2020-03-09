@@ -3,7 +3,8 @@ import {
     DisplayObjectContainer,
     FStage,
     Point,
-    IFDisplayObjectUnderPointVO
+    IFDisplayObjectUnderPointVO,
+    Rectangle
 } from "../../../../../index";
 
 export class FDisplayTools {
@@ -66,7 +67,7 @@ export class FDisplayTools {
                     }
 
                 } else {
-                    let tempBounds: PIXI.Rectangle = root.getBounds();
+                    let tempBounds: Rectangle = root.getBounds();
                     if (tempBounds.contains(x, y)) {
                         isUnderPoint = true;
                     }

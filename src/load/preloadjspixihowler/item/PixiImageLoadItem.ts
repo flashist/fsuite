@@ -1,8 +1,10 @@
+import {Loader} from "pixi.js";
+
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
 export class PixiImageLoadItem extends AbstractLoadItem {
 
-    protected loader: PIXI.Loader;
+    protected loader: Loader;
 
     protected progressBinding: any;
     protected fileCompleteBinding: any;
@@ -10,7 +12,7 @@ export class PixiImageLoadItem extends AbstractLoadItem {
     protected errorBinding: any;
 
     protected internalPrepare(): void {
-        this.loader = new PIXI.Loader(this.config.basePath);
+        this.loader = new Loader(this.config.basePath);
         this.loader.add(
             this.config.id,
             this.config.src
@@ -35,7 +37,7 @@ export class PixiImageLoadItem extends AbstractLoadItem {
         super.addLoadingListeners();
 
         this.progressBinding = this.loader.onProgress.add(
-            (loader: PIXI.Loader, resource: any) => {
+            (loader: Loader, resource: any) => {
                 this.processLoadingProgress(loader.progress / 100);
             }
         );
@@ -45,12 +47,12 @@ export class PixiImageLoadItem extends AbstractLoadItem {
             }
         );*/
         this.completeBinding = this.loader.onComplete.add(
-            (loader: PIXI.Loader, resourcesMap: {[key: string]: any}) => {
+            (loader: Loader, resourcesMap: {[key: string]: any}) => {
                 this.processLoadingComplete(resourcesMap);
             }
         );
         this.errorBinding = this.loader.onError.add(
-            (error: any, loader: PIXI.Loader, resource: any) => {
+            (error: any, loader: Loader, resource: any) => {
                 this.processLoadingError(
                     {
                         data: error,
