@@ -18,6 +18,11 @@ export class FApp extends App {
     constructor(protected options?: any | AppProperties) {
         super(options);
 
+        this.options = options;
+        if (!this.options) {
+            this.options = {};
+        }
+
         if (this.options.targetFps) {
             this.fpsLimitterEnabled = true;
             this.targetRenderInterval = 1000 / this.options.targetFps;
