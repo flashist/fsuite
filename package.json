@@ -10,7 +10,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "publish:next:patch": "npm version patch && npm run build && npm publish"
   },
   "dependencies": {
     "@types/createjs": "0.0.29",
