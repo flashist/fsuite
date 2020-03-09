@@ -1,4 +1,4 @@
-import {EventListenerHelper, Logger} from "fcore";
+import {EventListenerHelper, Logger, IDatable} from "fcore";
 
 import {
     DisplayObjectContainer,
@@ -10,7 +10,7 @@ import {
     serviceLocatorProcessItemOnDeactivate
 } from "../../../../index";
 
-export class FContainer<DataType extends object = object> extends DisplayObjectContainer {
+export class FContainer<DataType extends object = object> extends DisplayObjectContainer implements IDatable {
 
     public isFContainer: boolean = true;
 
