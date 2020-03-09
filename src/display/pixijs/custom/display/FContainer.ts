@@ -7,7 +7,8 @@ import {
     DisplayEvent,
     FDisplayTools,
     serviceLocatorProcessItemOnActivate,
-    serviceLocatorProcessItemOnDeactivate
+    serviceLocatorProcessItemOnDeactivate,
+    DisplayObject
 } from "../../../../index";
 
 export class FContainer<DataType extends object = object> extends DisplayObjectContainer implements IDatable {
@@ -129,6 +130,35 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
 
     protected arrange(): void {
         // Note: subclasses should implement their own logic here
+    }
+
+
+    public addChildBefore(child: DisplayObject, beforeChild: DisplayObject): void {
+        const beforeChildIndex: number = this.getChildIndex(beforeChild);
+        if (beforeChildIndex === -1) {
+            return;
+        }
+
+        let addIndex: number = beforeChildIndex - 1;
+        if (addIndex < 0) {
+            addIndex = 0;
+        }
+
+        this.addChildAt(child, addIndex);
+    }
+
+    public addChildAfter(child: DisplayObject, afterChild: DisplayObject): void {
+        const afterChildIndex: number = this.getChildIndex(afterChild);
+        if (afterChildIndex === -1) {
+            return;
+        }
+
+        let addIndex: number = afterChildIndex + 1;
+        if (addIndex > this.children.length) {
+            addIndex = this.children.length;
+        }
+
+        this.addChildAt(child, addIndex);
     }
 
 
