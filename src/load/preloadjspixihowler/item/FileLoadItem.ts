@@ -2,6 +2,8 @@ import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
+import 'createjs';
+
 export class FileLoadItem extends AbstractLoadItem {
 
     protected queue: createjs.LoadQueue;
