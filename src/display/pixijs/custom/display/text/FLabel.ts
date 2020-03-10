@@ -434,6 +434,32 @@ export class FLabel extends FContainer {
         this.applyStyle();
     }
 
+    get stroke(): number {
+        return this.config.stroke;
+    }
+    set stroke(value: number) {
+        if (this.config.stroke === value) {
+            return;
+        }
+
+        this.config.stroke = value;
+
+        this.applyStyle();
+    }
+
+    get strokeThickness(): number {
+        return this.config.strokeThickness;
+    }
+    set strokeThickness(value: number) {
+        if (this.config.strokeThickness === value) {
+            return;
+        }
+
+        this.config.strokeThickness = value;
+
+        this.applyStyle();
+    }
+
 
     get fieldPadding(): Point {
         return this._fieldPadding;
