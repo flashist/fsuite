@@ -103,6 +103,7 @@ export class FLabel extends FContainer {
 
             if (this.config.dropShadow) {
                 textField.style.dropShadow = true;
+
                 if (this.config.dropShadowColor !== undefined) {
                     textField.style.dropShadowColor = this.config.dropShadowColor;
                 }
