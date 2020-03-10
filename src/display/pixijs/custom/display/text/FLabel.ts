@@ -104,8 +104,12 @@ export class FLabel extends FContainer {
 
             textField.style.dropShadow = !!this.config.dropShadow;
 
-            textField.style.stroke = !!this.config.stroke;
-            textField.style.strokeThickness = !!this.config.strokeThickness;
+            if (this.config.stroke) {
+                textField.style.stroke = this.config.stroke;
+                textField.style.strokeThickness = !!this.config.strokeThickness;
+            } else {
+                textField.style.stroke = 0;
+            }
 
             if (this.config.align) {
                 textField.style.align = this.config.align;
