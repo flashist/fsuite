@@ -1,4 +1,4 @@
-import {AssociativeArray, BaseObject} from "fcore";
+import {AssociativeArray, BaseObject, IConstructor} from "fcore";
 
 import {IGenericObjectVO} from "./IGenericObjectVO";
 import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
@@ -7,6 +7,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
 
     protected items: AssociativeArray<ItemType> = new AssociativeArray<ItemType>();
     public itemsType: string = "";
+    public DefaultItemClass: IConstructor<ItemType>;
 
     public parseSource(source: IGenericObjectVO): void {
         switch (source.action) {
@@ -43,7 +44,12 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
     }
 
     protected createEmpty(id: string): ItemType {
-        return ({id: id, type: this.itemsType} as ItemType);
+        let result: ItemType = ({id: id, type: this.itemsType} as ItemType);
+        if (this.DefaultItemClass) {
+            result = new this.DefaultItemClass();
+        }
+
+        return result;
     }
 
     protected updateItem(item: ItemType, source: any): void {
