@@ -16,6 +16,13 @@ export interface IFLabelConfig {
     bold?: boolean;
 
     dropShadow?: boolean;
+    dropShadowColor?: number;
+    dropShadowAlpha?: number;
+    dropShadowDistance?: number;
+    dropShadowAngle?: number;
+    dropShadowBlur?: number;
+
+
     stroke?: number;
     strokeThickness?: number;
 }

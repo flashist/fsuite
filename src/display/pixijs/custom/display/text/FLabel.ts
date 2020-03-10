@@ -1,4 +1,3 @@
-
 import {ObjectTools} from "fcore";
 
 import {
@@ -102,7 +101,31 @@ export class FLabel extends FContainer {
                 textField.style.fontWeight = "normal";
             }
 
-            textField.style.dropShadow = !!this.config.dropShadow;
+            if (this.config.dropShadow) {
+                textField.style.dropShadow = true;
+                if (this.config.dropShadowColor !== undefined) {
+                    textField.style.dropShadowColor = this.config.dropShadowColor;
+                }
+
+                if (this.config.dropShadowAlpha !== undefined) {
+                    textField.style.dropShadowAlpha = this.config.dropShadowAlpha;
+                }
+
+                if (this.config.dropShadowDistance !== undefined) {
+                    textField.style.dropShadowDistance = this.config.dropShadowDistance;
+                }
+
+                if (this.config.dropShadowAngle !== undefined) {
+                    textField.style.dropShadowAngle = this.config.dropShadowAngle;
+                }
+
+                if (this.config.dropShadowBlur !== undefined) {
+                    textField.style.dropShadowBlur = this.config.dropShadowBlur;
+                }
+
+            } else {
+                textField.style.dropShadow = false;
+            }
 
             if (this.config.stroke) {
                 textField.style.stroke = this.config.stroke;
@@ -325,6 +348,7 @@ export class FLabel extends FContainer {
     public get scaleFactor(): number {
         return this.config.scaleFactor;
     }
+
     public set scaleFactor(value: number) {
         if (value === this.config.scaleFactor) {
             return;
@@ -369,6 +393,7 @@ export class FLabel extends FContainer {
     public get autosize(): boolean {
         return this.config.autosize;
     }
+
     public set autosize(value: boolean) {
         if (value === this.config.autosize) {
             return;
@@ -382,6 +407,7 @@ export class FLabel extends FContainer {
     public get autosizeType(): AutosizeType {
         return this.config.autosizeType;
     }
+
     public set autosizeType(value: AutosizeType) {
         if (value === this.config.autosizeType) {
             return;
@@ -411,6 +437,7 @@ export class FLabel extends FContainer {
     get bold(): boolean {
         return this.config.bold;
     }
+
     set bold(value: boolean) {
         if (this.config.bold === value) {
             return;
@@ -424,6 +451,7 @@ export class FLabel extends FContainer {
     get dropShadow(): boolean {
         return this.config.dropShadow;
     }
+
     set dropShadow(value: boolean) {
         if (this.config.dropShadow === value) {
             return;
@@ -437,6 +465,7 @@ export class FLabel extends FContainer {
     get stroke(): number {
         return this.config.stroke;
     }
+
     set stroke(value: number) {
         if (this.config.stroke === value) {
             return;
@@ -450,6 +479,7 @@ export class FLabel extends FContainer {
     get strokeThickness(): number {
         return this.config.strokeThickness;
     }
+
     set strokeThickness(value: number) {
         if (this.config.strokeThickness === value) {
             return;
@@ -464,6 +494,7 @@ export class FLabel extends FContainer {
     get fieldPadding(): Point {
         return this._fieldPadding;
     }
+
     set fieldPadding(value: Point) {
         if (this._fieldPadding.equals(value)) {
             return;
