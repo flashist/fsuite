@@ -44,10 +44,16 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
     }
 
     protected createEmpty(id: string): ItemType {
-        let result: ItemType = ({id: id, type: this.itemsType} as ItemType);
+        let result: ItemType;
+
+        const initSourceData: any = {id: id, type: this.itemsType};
         if (this.DefaultItemClass) {
             result = new this.DefaultItemClass();
+        } else {
+            result = initSourceData;
         }
+
+        this.updateItem(result, initSourceData);
 
         return result;
     }
