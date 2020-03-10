@@ -18,7 +18,7 @@ export class GenericObjectsByTypeModel {
         let result: GenericObjectsModel = this.modelsToTypeMap.getItem(type);
         if (!result) {
             result = new GenericObjectsModel();
-            result.defaultItemsType = type;
+            result.itemsType = type;
 
             this.mapModelToType(result, type);
         }
