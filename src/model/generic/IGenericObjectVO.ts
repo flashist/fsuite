@@ -4,4 +4,6 @@ export interface IGenericObjectVO {
 
     action?: string;
     update?:(source:any) => void;
+
+    [key: string]: any;
 }
