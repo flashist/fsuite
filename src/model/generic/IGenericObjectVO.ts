@@ -1,8 +1,10 @@
+import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
+
 export interface IGenericObjectVO {
     id?: string;
     type?: string;
 
-    action?: string;
+    action?: GenericObjectChangeActionType;
     update?:(source:any) => void;
 
     [key: string]: any;
