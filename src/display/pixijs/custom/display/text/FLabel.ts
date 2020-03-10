@@ -101,11 +101,11 @@ export class FLabel extends FContainer {
             } else {
                 textField.style.fontWeight = "normal";
             }
-            if (this.config.dropShadow) {
-                textField.style.dropShadow = true;
-            } else {
-                textField.style.dropShadow = false;
-            }
+
+            textField.style.dropShadow = !!this.config.dropShadow;
+
+            textField.style.stroke = !!this.config.stroke;
+            textField.style.strokeThickness = !!this.config.strokeThickness;
 
             if (this.config.align) {
                 textField.style.align = this.config.align;
