@@ -170,9 +170,19 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
             return;
         }
 
+        this.processDataUnset(this._data);
         this._data = value;
+        this.processDataSet(this._data);
 
         this.commitData();
+    }
+
+    protected processDataUnset(value: DataType): void {
+        // Subclasses should implement their logic
+    }
+
+    protected processDataSet(value: DataType): void {
+        // Subclasses should implement their logic
     }
 
     public get stage(): FStage {
