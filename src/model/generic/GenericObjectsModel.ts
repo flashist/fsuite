@@ -2,12 +2,19 @@ import {AssociativeArray, BaseObject, IConstructor} from "fcore";
 
 import {IGenericObjectVO} from "./IGenericObjectVO";
 import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
+import {BaseDataVO} from "fsuite";
 
 export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObjectVO> extends BaseObject {
 
     protected items: AssociativeArray<ItemType> = new AssociativeArray<ItemType>();
     public itemsType: string;
     public DefaultItemClass: IConstructor<ItemType>;
+
+    protected construction(...args): void {
+        super.construction(...args);
+
+        this.DefaultItemClass = BaseDataVO;
+    }
 
     public parseSource(source: IGenericObjectVO): void {
         switch (source.action) {
