@@ -20,6 +20,7 @@ export * from './model/generic/IGenericObjectWithStaticVO'
 export * from './model/generic/IGenericObjectVO'
 export * from './model/generic/GenericObjectsWithStaticTools'
 
+export * from './base/data/BaseDataVOEvent'
 export * from './base/data/BaseDataVO'
 
 // export * from './load/abstract/LoadFactory'
