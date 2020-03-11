@@ -140,7 +140,7 @@ export class DragHelper extends BaseObject {
         this.dispatchDragStartEvent();
     }
 
-    private stopDrag(): void {
+    public stopDrag(): void {
         if (!this.isDragStarted) {
             return;
         }
