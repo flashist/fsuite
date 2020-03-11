@@ -6,7 +6,7 @@ import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
 export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObjectVO> extends BaseObject {
 
     protected items: AssociativeArray<ItemType> = new AssociativeArray<ItemType>();
-    public itemsType: string = "";
+    public itemsType: string;
     public DefaultItemClass: IConstructor<ItemType>;
 
     public parseSource(source: IGenericObjectVO): void {
