@@ -1,4 +1,4 @@
-﻿import {Logger, ObjectTools, BaseEventDispatcher} from "fcore";
+﻿import {ObjectTools, BaseEventDispatcher} from "fcore";
 
 import {IGenericObjectVO} from "../..";
 import {BaseDataVOEvent} from "./BaseDataVOEvent";

@@ -7,7 +7,7 @@ export interface ICreateConfig {
     isSingleton?: boolean;
     forceCreation?: boolean;
 
-    activateesConstructors?: IConstructor<IActivatee>[];
+    activateeConstructors?: IConstructor<IActivatee>[];
 
     constructionArgs?: any[];
 }

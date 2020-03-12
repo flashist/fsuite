@@ -39,12 +39,12 @@ export class ServiceLocator {
 
                 if (toSubstituteInjection.config) {
 
-                    if (!config.activateesConstructors) {
-                        config.activateesConstructors = [];
+                    if (!config.activateeConstructors) {
+                        config.activateeConstructors = [];
                     }
 
-                    if (toSubstituteInjection.config.activateesConstructors) {
-                        config.activateesConstructors.push(...toSubstituteInjection.config.activateesConstructors);
+                    if (toSubstituteInjection.config.activateeConstructors) {
+                        config.activateeConstructors.push(...toSubstituteInjection.config.activateeConstructors);
                     }
 
                     // Copy properties TO THE FINAL substitution from the injection which will be substituted
@@ -173,8 +173,8 @@ export class ServiceLocator {
             // which should be created on activation
             // and while there is an object in the substitue chain, which might have such information
             // while (item.config.activateesConstructors) {
-                if (item.config.activateesConstructors) {
-                    result.push(...item.config.activateesConstructors);
+                if (item.config.activateeConstructors) {
+                    result.push(...item.config.activateeConstructors);
                 }
 
                 /*if (item.toSubstitute) {
