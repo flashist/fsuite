@@ -110,6 +110,7 @@ export class FContainer<DataType extends object = object> extends DisplayObjectC
 
         this.addListeners();
         this.commitData();
+        this.processDataSet(this.data);
     }
 
     protected onRemovedFromStage(): void {
