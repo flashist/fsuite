@@ -8,7 +8,7 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
     public type: string = "";
     public id: string = "";
 
-    update(source: Partial<BaseDataVO>): void {
+    update(source: Partial<this>): void {
         const isChanged: boolean = ObjectTools.copyProps(this, source);
 
         if (isChanged) {
