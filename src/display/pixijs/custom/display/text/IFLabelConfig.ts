@@ -6,7 +6,7 @@ export interface IFLabelConfig {
     bgAlpha?: number;
     autosize?: boolean;
     autosizeType?: AutosizeType;
-    scaleFactor?: number;
+    fitToSize?: boolean;
 
     fontFamily?: string;
     size?: number;

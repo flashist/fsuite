@@ -11,7 +11,8 @@ import {
     FLabelEvent,
     Point,
     AutosizeType,
-    FLabelDefaultConfig
+    FLabelDefaultConfig,
+    DisplayResizeTools
 } from "../../../../../index";
 
 export class FLabel extends FContainer {
@@ -90,7 +91,7 @@ export class FLabel extends FContainer {
                 textField.style.fontFamily = this.config.fontFamily;
             }
             if (this.config.size) {
-                textField.style.fontSize = this.config.size / this.scaleFactor;
+                textField.style.fontSize = this.config.size;
             }
             if (this.config.color) {
                 textField.style.fill = this.config.color;
@@ -140,8 +141,6 @@ export class FLabel extends FContainer {
             } else {
                 textField.style.align = Align.LEFT;
             }
-
-            textField.scale.set(this.scaleFactor);
         }
 
         this.arrange();
@@ -165,6 +164,18 @@ export class FLabel extends FContainer {
                 this._height = this.field.height + (this._fieldPadding.y * 2);
             }
         }
+
+        let tempFieldScale: number = 1;
+        if (this.fitToSize) {
+            tempFieldScale = DisplayResizeTools.getScale(
+                this.textWidth,
+                this.textHeight,
+                this.textAvailableWidth,
+                this.textAvailableHeight
+            );
+        }
+
+        this.field.scale.set(tempFieldScale);
 
         this.bg.width = this._width;
         this.bg.height = this._height;
@@ -346,20 +357,6 @@ export class FLabel extends FContainer {
         this.arrange();
     }
 
-    public get scaleFactor(): number {
-        return this.config.scaleFactor;
-    }
-
-    public set scaleFactor(value: number) {
-        if (value === this.config.scaleFactor) {
-            return;
-        }
-
-        this.config.scaleFactor = value;
-
-        this.applyStyle();
-    }
-
     private updateBg(): void {
 
         const bgColor = this.config.bgColor ? this.config.bgColor : 0;
@@ -394,7 +391,6 @@ export class FLabel extends FContainer {
     public get autosize(): boolean {
         return this.config.autosize;
     }
-
     public set autosize(value: boolean) {
         if (value === this.config.autosize) {
             return;
@@ -408,13 +404,25 @@ export class FLabel extends FContainer {
     public get autosizeType(): AutosizeType {
         return this.config.autosizeType;
     }
-
     public set autosizeType(value: AutosizeType) {
         if (value === this.config.autosizeType) {
             return;
         }
 
         this.config.autosizeType = value;
+
+        this.arrange();
+    }
+
+    public get fitToSize(): boolean {
+        return this.config.fitToSize;
+    }
+    public set fitToSize(value: boolean) {
+        if (value === this.config.fitToSize) {
+            return;
+        }
+
+        this.config.fitToSize = value;
 
         this.arrange();
     }
@@ -433,6 +441,13 @@ export class FLabel extends FContainer {
         } else {
             return this.field.height / this.field.scale.y;
         }
+    }
+
+    get textAvailableWidth(): number {
+        return this.width - (this.fieldPadding.x * 2);
+    }
+    get textAvailableHeight(): number {
+        return this.height - (this.fieldPadding.y * 2);
     }
 
     get bold(): boolean {
