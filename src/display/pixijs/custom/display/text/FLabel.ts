@@ -37,7 +37,13 @@ export class FLabel extends FContainer {
             config = {};
         }
         this.config = config;
-        ObjectTools.copyProps(this.config, FLabel.DEFAULT_CONFIG, {ignoreExistedProperties: true});
+        ObjectTools.copyProps(
+            this.config,
+            FLabel.DEFAULT_CONFIG,
+            {
+                ignoreExistedProperties: true
+            }
+        );
 
         this._fieldPadding = new Point();
 

@@ -48,7 +48,13 @@ export class ServiceLocator {
                     }
 
                     // Copy properties TO THE FINAL substitution from the injection which will be substituted
-                    ObjectTools.copyProps(config, toSubstituteInjection.config, true);
+                    ObjectTools.copyProps(
+                        config,
+                        toSubstituteInjection.config,
+                        {
+                            ignoreExistedProperties: true
+                        }
+                    );
                 }
             }
 
@@ -173,15 +179,15 @@ export class ServiceLocator {
             // which should be created on activation
             // and while there is an object in the substitue chain, which might have such information
             // while (item.config.activateesConstructors) {
-                if (item.config.activateeConstructors) {
-                    result.push(...item.config.activateeConstructors);
-                }
+            if (item.config.activateeConstructors) {
+                result.push(...item.config.activateeConstructors);
+            }
 
-                /*if (item.toSubstitute) {
-                    item = ServiceLocator.getInjection(item.toSubstitute);
-                } else {
-                    break;
-                }*/
+            /*if (item.toSubstitute) {
+                item = ServiceLocator.getInjection(item.toSubstitute);
+            } else {
+                break;
+            }*/
             // }
         }
 
