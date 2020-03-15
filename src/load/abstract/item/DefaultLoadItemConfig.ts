@@ -21,7 +21,9 @@ export class DefaultLoadItemConfig implements Partial<ILoadItemConfig> {
         ObjectTools.copyProps(
             item,
             DefaultLoadItemConfig.defaultLoadItem,
-            true
+            {
+                ignoreExistedProperties: true
+            }
         );
 
         // Default load groups
