@@ -46,6 +46,9 @@ export class FLabel extends FContainer {
         );
 
         this._fieldPadding = new Point();
+        if (this.config.fieldPadding) {
+            this._fieldPadding = this.config.fieldPadding;
+        }
 
         this.bg = new Graphics();
         this.addChild(this.bg);

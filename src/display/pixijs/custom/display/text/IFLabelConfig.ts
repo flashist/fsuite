@@ -1,4 +1,6 @@
+
 import {AutosizeType} from "./AutosizeType";
+import {Point} from "../../../../..";
 
 export interface IFLabelConfig {
     isBitmap?: boolean;
@@ -7,6 +9,7 @@ export interface IFLabelConfig {
     autosize?: boolean;
     autosizeType?: AutosizeType;
     fitToSize?: boolean;
+    fieldPadding?: Point;
 
     fontFamily?: string;
     size?: number;
